@@ -17,7 +17,7 @@ class Help(commands.Cog):
 
 	@commands.command(help="Shows about")
 	async def about(self, ctx):
-		await ctx.send("This a player duel bot made by @right hand man#0766 in discord.py, you can download the source code here: (pastebin link goes here) v1.0.0")
+		await ctx.send("This a player duel bot made by @right hand man#0766 in discord.py, you can download the source code here: https://github.com/Ya1Boi/poggersbot v1.0.0")
 
 	@commands.command(help="Shows credits")
 	async def credits(self, ctx):
