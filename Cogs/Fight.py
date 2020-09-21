@@ -28,7 +28,7 @@ class Fight(commands.Cog):
 		self.classembed.add_field(name="Civilian", value="No changes, absolutely balanced class")
 		self.classembed.add_field(name="Scout", value="+45% evade, -25 hp")
 		self.classembed.add_field(name="Heavy", value="+10% damage, +50 hp -40% evade, no dodge move")
-		self.classembed.add_field(name="Spy", value="-30 hp, has 2 special moves:\n ***trickstab:*** Goes for a backstab that has 25% chance to hit a critical that does 50 dmg (if missed does a normal jab and decreases defense by 25% (caps out at 1%) \n***dead ringer:*** goes for a special evade (50% chance) in the next turn that: (if hit) gives spy defense (50%) against all attacks for this and the next turn, extra 15% evade and -10% attack")
+		self.classembed.add_field(name="Spy", value="-30 hp, has 2 special moves:\n ***trickstab:*** Goes for a backstab that has 25% chance to hit a critical that does 40 dmg (if missed does a normal jab and decreases defense by 25% (caps out at 1%) \n***dead ringer:*** goes for a special evade (50% chance) in the next turn that: (if hit) gives spy defense (50%) against all attacks for this and the next turn, extra 15% evade and -10% attack")
 
 	@commands.command(help="Shows help menu")
 	async def fighthelp(self, ctx):
@@ -239,7 +239,7 @@ class Fight(commands.Cog):
 					if p1pick == 3:
 						tb = round(((random.randint(1,100)/100*srtacc)*notsrtscoutacc/100)*notsrtheavydodge/100)
 						if tb >= 75:
-							dmg=50
+							dmg=40
 							notstarterhp-=dmg
 							if notstarterhp < 0:
 								notstarterhp=0
@@ -288,7 +288,7 @@ class Fight(commands.Cog):
 					if p2pick == 3:
 						tb = round(((random.randint(1,100)/100*srtacc)*notsrtscoutacc/100)*notsrtheavydodge/100)
 						if tb >= 75:
-							dmg=50
+							dmg=40
 							notstarterhp-=dmg
 							if(notstarterhp<0):
 								notstarterhp=0

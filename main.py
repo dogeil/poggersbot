@@ -1,3 +1,5 @@
+import os
+from keep_alive import keep_alive
 import discord, random, datetime, os, traceback
 from discord.ext import commands
 
@@ -23,4 +25,6 @@ async def on_ready():
 	print('my body is ready')
 	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="your mom lmao"))
 
+keep_alive()
+token = os.environ.get("TOKEN")
 bot.run(token)
