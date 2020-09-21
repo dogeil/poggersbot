@@ -426,24 +426,6 @@ class Fight(commands.Cog):
 					self.switchstr()
 					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
-			elif msg.content.lower()=="debug punch" and msg.author.id==starter.id and not p1pick == None and not p2pick == None:
-				dmg=round((50/100*srtatk)/(notsrtdef/100)*srtheavydmg/100)
-				notstarterhp-=dmg
-				if notstarterhp < 0:
-					notstarterhp=0
-				if starterhp < 0:
-					starterhp=0
-				await ctx.send(f"{starter.mention}\'s attack did {dmg} to {notstarter.mention} and absolutely rekt {notstarter.mention}! {starter.mention} landed a very ***nice*** hit")
-				self.switchstr()
-				if notstarterhp <= 0:
-					await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
-					return
-				elif starterhp <= 0:
-					await ctx.send(f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
-					return
-				else:
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
-
 			elif msg.content.lower()=="hook" and msg.author.id==starter.id and not p1pick == None and not p2pick == None:
 				chance=round(((random.randint(1,100)/100*srtacc)*notsrtscoutacc/100)*notsrtheavydodge/100)
 				if chance >= 35:
