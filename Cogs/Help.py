@@ -43,6 +43,7 @@ class Help(commands.Cog):
 		embed.add_field(name=".monke", value="monke")
 		embed.add_field(name=".arabfunny", value="very funny haha")
 		embed.add_field(name=".randomshit", value="idk")
+		embed.add_field(name=".cbt", value="cock and ball torture")
 		await ctx.send(embed=embed)
 
 def setup(bot):
