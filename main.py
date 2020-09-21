@@ -7,8 +7,6 @@ bot = commands.AutoShardedBot(command_prefix = '.', description = "it fights dum
 bot.remove_command('help')
 IgnoreImport = []
 
-token=""
-
 for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.isfile(os.path.join("Cogs", f))]:
 	if Extension in IgnoreImport:
 		continue
