@@ -8,6 +8,7 @@ authors = ["@engineer tf3#0776"]
 python = "^3.8"
 "discord.py" = "^1.4.1"
 flask = "^1.1.2"
+youtube-dl = "^2020.9.20"
 
 [tool.poetry.dev-dependencies]
 

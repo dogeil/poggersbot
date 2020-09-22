@@ -1,5 +1,12 @@
 import discord, random, datetime
+import asyncio
+import functools
+import itertools
+import math
+import youtube_dl
+from async_timeout import timeout
 from discord.ext import commands
+from send import banlist, sendm
 
 starter, notstarter, srtmh, notsrtmh, starterhp, notstarterhp, notsrtatk, srtatk, notsrtdef, srtdef, notsrtacc, srtacc, notsrtatkmode, srtatkmode, notsrtdefmode, srtdefmode, notsrtaccmode, srtaccmode, srtdodgemode, notsrtdodgemode, srtscoutacc, notsrtscoutacc, srtheavydmg, notsrtheavydmg, srtheavydodge, notsrtheavydodge = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
@@ -28,15 +35,15 @@ class Fight(commands.Cog):
 		self.classembed.add_field(name="Civilian", value="No changes, absolutely balanced class")
 		self.classembed.add_field(name="Scout", value="+45% evade, -25 hp")
 		self.classembed.add_field(name="Heavy", value="+10% damage, +50 hp -40% evade, no dodge move")
-		self.classembed.add_field(name="Spy", value="-30 hp, has 2 special moves:\n ***trickstab:*** Goes for a backstab that has 25% chance to hit a critical that does 40 dmg (if missed does a normal jab and decreases defense by 25% (caps out at 1%) \n***dead ringer:*** goes for a special evade (50% chance) in the next turn that: (if hit) gives spy defense (50%) against all attacks for this and the next turn, extra 15% evade and -10% attack")
+		self.classembed.add_field(name="Spy", value="-25 hp, +15 evade has 2 special moves:\n ***trickstab:*** Goes for a backstab that has 25% chance to hit a critical that does 40 dmg (if missed does a normal jab and decreases defense by 25% (caps out at 1%) \n***dead ringer:*** goes for a special evade (50% chance) in the next turn that: (if hit) gives spy defense (50%) against all attacks for this and the next turn, extra 15% evade and -10% attack")
 
 	@commands.command(help="Shows help menu")
 	async def fighthelp(self, ctx):
-		await ctx.send(embed=self.embed)
+		await sendm(banlist, ctx, embed=self.embed)
 
 	@commands.command(help="Displays all classes.", aliases=["class"])
 	async def _class(self, ctx):
-		await ctx.send(embed=self.classembed)
+		await sendm(banlist, ctx, embed=self.classembed)
 
 	def switchstr(self):
 		global starter, notstarter, srtmh, notsrtmh, starterhp, notstarterhp, notsrtatk, srtatk, notsrtdef, srtdef, notsrtacc, srtacc, notsrtatkmode, srtatkmode, notsrtdefmode, srtdefmode, notsrtaccmode, srtaccmode, srtdodgemode, notsrtdodgemode, srtscoutacc, notsrtscoutacc, srtheavydmg, notsrtheavydmg, srtheavydodge, notsrtheavydodge
@@ -57,10 +64,10 @@ class Fight(commands.Cog):
 	@commands.command()
 	async def fight(self, ctx, pl2 : discord.Member):
 		if(ctx.author == pl2):
-			await ctx.send("You can't fight yourself, dummy")
+			await sendm(banlist, ctx, "You can't fight yourself, dummy")
 			return
 		if(ctx.author.bot or pl2.bot):
-			await ctx.send("You can't fight bots, dummy")
+			await sendm(banlist, ctx, "You can't fight bots, dummy")
 			return
 
 		global p1
@@ -136,7 +143,7 @@ class Fight(commands.Cog):
 			starterhp = p2hp
 			notstarterhp = p1hp
 			notstarter = p1
-		await ctx.send(f"{starter.mention} What is your class? Available classes: ***Civilian, Scout, Heavy, Spy*** (if you need help, use .class command)")
+		await sendm(banlist, ctx, f"{starter.mention} What is your class? Available classes: ***Civilian, Scout, Heavy, Spy*** (if you need help, use .class command)")
 
 		@self.bot.listen()
 		async def on_message(msg):
@@ -183,17 +190,17 @@ class Fight(commands.Cog):
 						notstarterhp=0
 					if starterhp < 0:
 						starterhp=0
-					await ctx.send(f"{starter.mention}'s first attack did {dmg} to {notstarter.mention} and now he/she is left with {notstarterhp}!")
-					await ctx.send("Second attack missed!")
+					await sendm(banlist, ctx, f"{starter.mention}'s first attack did {dmg} to {notstarter.mention} and now he/she is left with {notstarterhp}!")
+					await sendm(banlist, ctx, "Second attack missed!")
 					self.switchstr()
 					if notstarterhp <= 0:
-						await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
+						await sendm(banlist, ctx, f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
 						return
 					elif starterhp <= 0:
-						await ctx.send(f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
+						await sendm(banlist, ctx, f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
 						return
 					else:
-						await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 				else:
 					attack1dmg=round((random.randint(5,13)/100*srtatk)/(notsrtdef/100)*srtheavydmg/100)
 					attack2dmg=round((random.randint(5,13)/100*srtatk)/(notsrtdef/100)*srtheavydmg/100)
@@ -206,17 +213,17 @@ class Fight(commands.Cog):
 						notstarterhp=0
 					if starterhp < 0:
 						starterhp=0
-					await ctx.send(f"{starter.mention}'s first attack did {attack1dmg} to {notstarter.mention} and now is left with {sample1damaged}!")
-					await ctx.send(f"{starter.mention}'s second attack did {attack2dmg} to {notstarter.mention} and now is left with {notstarterhp}!")
+					await sendm(banlist, ctx, f"{starter.mention}'s first attack did {attack1dmg} to {notstarter.mention} and now is left with {sample1damaged}!")
+					await sendm(banlist, ctx, f"{starter.mention}'s second attack did {attack2dmg} to {notstarter.mention} and now is left with {notstarterhp}!")
 					self.switchstr()
 					if notstarterhp <= 0:
-						await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
+						await sendm(banlist, ctx, f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
 						return
 					elif starterhp <= 0:
-						await ctx.send(f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
+						await sendm(banlist, ctx, f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
 						return
 					else:
-						await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 			elif msg.content.lower() == "jab" and msg.author.id == starter.id and not p1pick == None and not p2pick == None:
 				dmg=random.randint(7,15)
 				notstarterhp-=dmg
@@ -224,16 +231,16 @@ class Fight(commands.Cog):
 					notstarterhp=0
 				if starterhp < 0:
 					starterhp=0
-				await ctx.send(f"{starter.mention}'s attack did {dmg} to {notstarter.mention} and now is left with {notstarterhp}!")
+				await sendm(banlist, ctx, f"{starter.mention}'s attack did {dmg} to {notstarter.mention} and now is left with {notstarterhp}!")
 				self.switchstr()
 				if notstarterhp <= 0:
-					await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
+					await sendm(banlist, ctx, f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
 					return
 				elif starterhp <= 0:
-					await ctx.send(f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
+					await sendm(banlist, ctx, f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
 					return
 				else:
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 			elif msg.content.lower() == "trickstab" and msg.author.id == starter.id and not p1pick == None and not p2pick == None:
 				if starter.id == p1.id:
 					if p1pick == 3:
@@ -245,18 +252,18 @@ class Fight(commands.Cog):
 								notstarterhp=0
 							if starterhp < 0:
 								starterhp=0
-							await ctx.send(f"{starter.mention} just hit a ***sick*** trickstab! It did {dmg} damage and left {notstarter.mention} with {notstarterhp}")
+							await sendm(banlist, ctx, f"{starter.mention} just hit a ***sick*** trickstab! It did {dmg} damage and left {notstarter.mention} with {notstarterhp}")
 							self.switchstr()
 							if(notstarterhp<= 0):
-								await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
+								await sendm(banlist, ctx, f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
 								return
 							elif(starterhp<= 0):
-								await ctx.send(f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
+								await sendm(banlist, ctx, f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
 								return
 							else:
-								await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+								await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 						else:
-							await ctx.send(f"{starter.mention}'s trickstab failed! (how embarassing...), he/she does a normal jab instead")
+							await sendm(banlist, ctx, f"{starter.mention}'s trickstab failed! (how embarassing...), he/she does a normal jab instead")
 							srtdefmode=False
 							srtatkmode=False
 							srtaccmode=False
@@ -270,20 +277,20 @@ class Fight(commands.Cog):
 								notstarterhp=0
 							if starterhp < 0:
 								starterhp=0
-							await ctx.send(f"{starter.mention}\'s attack did {dmg} to {notstarter.mention } and now is left with {notstarterhp}!")
+							await sendm(banlist, ctx, f"{starter.mention}\'s attack did {dmg} to {notstarter.mention } and now is left with {notstarterhp}!")
 							self.switchstr()
 							if notstarterhp <= 0:
-								await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
+								await sendm(banlist, ctx, f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
 								return
 							elif starterhp <= 0:
-								await ctx.send(f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
+								await sendm(banlist, ctx, f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
 								return
 							else:
-								await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+								await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 					else:
-						await ctx.send("Only the spy can trickstab")
+						await sendm(banlist, ctx, "Only the spy can trickstab")
 						self.switchstr()
-						await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 				elif starter.id == p2.id:
 					if p2pick == 3:
 						tb = round(((random.randint(1,100)/100*srtacc)*notsrtscoutacc/100)*notsrtheavydodge/100)
@@ -294,18 +301,18 @@ class Fight(commands.Cog):
 								notstarterhp=0
 							if(starterhp<0):
 								starterhp=0
-							await ctx.send(f"{starter.mention} just hit a ***sick*** trickstab! It did {dmg} damage and left {notstarter.mention} with {notstarterhp}")
+							await sendm(banlist, ctx, f"{starter.mention} just hit a ***sick*** trickstab! It did {dmg} damage and left {notstarter.mention} with {notstarterhp}")
 							self.switchstr()
 							if notstarterhp <= 0:
-								await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
+								await sendm(banlist, ctx, f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
 								return
 							elif starterhp <= 0:
-								await ctx.send(f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
+								await sendm(banlist, ctx, f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
 								return
 							else:
-								await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+								await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 						else:
-							await ctx.send(f"{starter.mention}'s trickstab failed! (how embarassing...), he/she does a normal jab instead")
+							await sendm(banlist, ctx, f"{starter.mention}'s trickstab failed! (how embarassing...), he/she does a normal jab instead")
 							srtdefmode=False
 							srtatkmode=False
 							srtaccmode=False
@@ -319,20 +326,20 @@ class Fight(commands.Cog):
 								notstarterhp=0
 							if starterhp < 0:
 								starterhp=0
-							await ctx.send(f"{starter.mention}\'s attack did {dmg} to {notstarter.mention } and now is left with {notstarterhp}!")
+							await sendm(banlist, ctx, f"{starter.mention}\'s attack did {dmg} to {notstarter.mention } and now is left with {notstarterhp}!")
 							self.switchstr()
 							if notstarterhp <= 0:
-								await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
+								await sendm(banlist, ctx, f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
 								return
 							elif starterhp <= 0:
-								await ctx.send(f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
+								await sendm(banlist, ctx, f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
 								return
 							else:
-								await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+								await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 					else:
-						await ctx.send("Only the spy can trickstab")
+						await sendm(banlist, ctx, "Only the spy can trickstab")
 						self.switchstr()
-						await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif msg.content.lower()=="dead ringer" and msg.author.id==starter.id and not p1pick == None and not p2pick == None:
 				if starter.id == p1.id:
@@ -347,7 +354,7 @@ class Fight(commands.Cog):
 							srtatkmode=False
 							srtaccmode=False
 							srtdodgemode=False
-							await ctx.send("Dead ringer activated")
+							await sendm(banlist, ctx, "Dead ringer activated")
 							srtdef+=50
 							if(srtdef>300):
 								srtdef=300
@@ -358,7 +365,7 @@ class Fight(commands.Cog):
 							if(srtatk<1):
 								srtatk=1
 							self.switchstr()
-							await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+							await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 						else:
 							srtdefmode=False
 							srtatkmode=False
@@ -367,13 +374,13 @@ class Fight(commands.Cog):
 							srtdef-=10
 							srtatk-=10
 							srtacc-=10
-							await ctx.send("Failed to activate")
+							await sendm(banlist, ctx, "Failed to activate")
 							self.switchstr()
-							await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+							await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 					else:
-						await ctx.send("Only the spy can use dead ringer")
+						await sendm(banlist, ctx, "Only the spy can use dead ringer")
 						self.switchstr()
-						await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 				elif starter.id == p2.id:
 					if(p2pick==3):
@@ -387,7 +394,7 @@ class Fight(commands.Cog):
 							srtatkmode=False
 							srtaccmode=False
 							srtdodgemode=False
-							await ctx.send("Dead ringer activated")
+							await sendm(banlist, ctx, "Dead ringer activated")
 							srtdef+=50
 							if srtdef > 300:
 								srtdef=300
@@ -398,7 +405,7 @@ class Fight(commands.Cog):
 							if srtatk < 1:
 								srtatk=1
 							self.switchstr()
-							await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+							await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 						else:
 							srtdefmode=False
 							srtatkmode=False
@@ -407,24 +414,24 @@ class Fight(commands.Cog):
 							srtdef-=10
 							srtatk-=10
 							srtacc-=10
-							await ctx.send("Failed to activate")
+							await sendm(banlist, ctx, "Failed to activate")
 							self.switchstr()
-							await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+							await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 					else:
-						await ctx.send("Only the spy can use dead ringer")
+						await sendm(banlist, ctx, "Only the spy can use dead ringer")
 						self.switchstr()
-						await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif msg.content.lower()=="taunt kill" and msg.author.id==starter.id and not p1pick == None and not p2pick == None:
 				chance=random.randint(1,200)
 				if chance == 69:
-					await ctx.send(f"{starter.mention}'s attack did 42069 (haha) to {notstarter.mention} and now is left with 0hp!")
-					await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
+					await sendm(banlist, ctx, f"{starter.mention}'s attack did 42069 (haha) to {notstarter.mention} and now is left with 0hp!")
+					await sendm(banlist, ctx, f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
 					return
 				else:
-					await ctx.send("Taunt attack missed!")
+					await sendm(banlist, ctx, "Taunt attack missed!")
 					self.switchstr()
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif msg.content.lower()=="hook" and msg.author.id==starter.id and not p1pick == None and not p2pick == None:
 				chance=round(((random.randint(1,100)/100*srtacc)*notsrtscoutacc/100)*notsrtheavydodge/100)
@@ -435,20 +442,20 @@ class Fight(commands.Cog):
 						notstarterhp=0
 					if(starterhp<0):
 						starterhp=0
-					await ctx.send(f"{starter.mention}\'s attack did {dmg} to {notstarter.mention} and he/she is now left with {notstarterhp}!")
+					await sendm(banlist, ctx, f"{starter.mention}\'s attack did {dmg} to {notstarter.mention} and he/she is now left with {notstarterhp}!")
 					self.switchstr()
 					if notstarterhp <= 0:
-						await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
+						await sendm(banlist, ctx, f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
 						return
 					elif starterhp <= 0:
-						await ctx.send(f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
+						await sendm(banlist, ctx, f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
 						return
 					else:
-						await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 				else:
-					await ctx.send("Hook attack missed!")
+					await sendm(banlist, ctx, "Hook attack missed!")
 					self.switchstr()
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif msg.content.lower()=="uppercut" and msg.author.id==starter.id and not p1pick == None and not p2pick == None:
 				chance=round(((random.randint(1,100)/100*srtacc)*notsrtscoutacc/100)*notsrtheavydodge/100)
@@ -460,23 +467,23 @@ class Fight(commands.Cog):
 					if starterhp < 0:
 						starterhp=0
 
-					await ctx.send(f"{starter.mention}\'s attack did {dmg} to {notstarter.mention} and he/she is now left with {notstarterhp}!")
+					await sendm(banlist, ctx, f"{starter.mention}\'s attack did {dmg} to {notstarter.mention} and he/she is now left with {notstarterhp}!")
 					self.switchstr()
 					if notstarterhp <= 0:
-						await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
+						await sendm(banlist, ctx, f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
 						return
 					elif starterhp <= 0:
-						await ctx.send(f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
+						await sendm(banlist, ctx, f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
 						return
 					else:
-						await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 				else:
-					await ctx.send("Uppercut attack missed!")
+					await sendm(banlist, ctx, "Uppercut attack missed!")
 					self.switchstr()
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif(msg.content.lower()=="massive haymaker" and msg.author.id==starter.id and not srtmh and not p1pick == None and not p2pick == None):
-				await ctx.send("Massive Haymaker Charging up!")
+				await sendm(banlist, ctx, "Massive Haymaker Charging up!")
 				srtdef=50
 				srtmh=True
 				if notstarterhp < 0:
@@ -484,7 +491,7 @@ class Fight(commands.Cog):
 				if starterhp < 0:
 					starterhp=0
 				self.switchstr()
-				await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+				await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif srtmh and not starterhp < 1 and not notstarterhp < 1:
 				srtdef=100
@@ -498,20 +505,20 @@ class Fight(commands.Cog):
 						notstarterhp=0
 					if starterhp < 0:
 						starterhp=0
-					await ctx.send(f"{starter.mention}\'s attack did {dmg} to {notstarter.mention} and he/she is now left with {notstarterhp}!")
+					await sendm(banlist, ctx, f"{starter.mention}\'s attack did {dmg} to {notstarter.mention} and he/she is now left with {notstarterhp}!")
 					self.switchstr()
 					if notstarterhp <= 0:
-						await ctx.send(f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
+						await sendm(banlist, ctx, f"{notstarter.mention} is dead! {starter.mention} just won with {starterhp}hp left!")
 						return
 					elif starterhp <= 0:
-						await ctx.send(f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
+						await sendm(banlist, ctx, f"{starter.mention} is dead! {notstarter.mention} just won with {notstarterhp}hp left!")
 						return
 					else:
-						await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 				else:
-					await ctx.send("Massive Haymaker attack missed!")
+					await sendm(banlist, ctx, "Massive Haymaker attack missed!")
 					self.switchstr()
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif(msg.content.lower()=="defend" and msg.author.id==starter.id and not p1pick == None and not p2pick == None ):
 				if not srtdefmode:
@@ -522,14 +529,14 @@ class Fight(commands.Cog):
 					srtdef=160
 					srtatk=70
 					srtacc=70
-					await ctx.send("You are now defending!")
+					await sendm(banlist, ctx, "You are now defending!")
 					self.switchstr()
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 				else:
-					await ctx.send("You are already defending")
+					await sendm(banlist, ctx, "You are already defending")
 					self.switchstr()
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif(msg.content.lower()=="balance" and msg.author.id==starter.id and not p1pick==None and not p2pick==None):
 				srtdefmode=False
@@ -539,9 +546,9 @@ class Fight(commands.Cog):
 				srtdef=100
 				srtatk=100
 				srtacc=100
-				await ctx.send("You are now balanced!")
+				await sendm(banlist, ctx, "You are now balanced!")
 				self.switchstr()
-				await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+				await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif(msg.content.lower()=="attack" and msg.author.id==starter.id and not p1pick == None and not p2pick == None ):
 				if not srtatkmode:
@@ -552,14 +559,14 @@ class Fight(commands.Cog):
 					srtdef=70
 					srtatk=160
 					srtacc=70
-					await ctx.send("You are now attacking!")
+					await sendm(banlist, ctx, "You are now attacking!")
 					self.switchstr()
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 				else:
-					await ctx.send("You are already attacking")
+					await sendm(banlist, ctx, "You are already attacking")
 					self.switchstr()
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif(msg.content.lower()=="focus" and msg.author.id==starter.id and not p1pick == None and not p2pick == None):
 				if not srtaccmode:
@@ -570,14 +577,14 @@ class Fight(commands.Cog):
 					srtdef=70
 					srtatk=70
 					srtacc=160
-					await ctx.send("You are now focusing!")
+					await sendm(banlist, ctx, "You are now focusing!")
 					self.switchstr()
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 				else:
-					await ctx.send("You are already focusing")
+					await sendm(banlist, ctx, "You are already focusing")
 					self.switchstr()
-					await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif((msg.content.lower() == "dodge" and msg.author.id == starter.id and not p1pick == None and not p2pick == None)):
 				if(starter.id==p1.id):
@@ -590,17 +597,17 @@ class Fight(commands.Cog):
 							notsrtdef=120
 							notsrtatk=120
 							notsrtacc=60
-							await ctx.send("You are now dodging!")
+							await sendm(banlist, ctx, "You are now dodging!")
 							self.switchstr()
-							await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+							await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 						else:
-							await ctx.send("You are already dodging")
+							await sendm(banlist, ctx, "You are already dodging")
 							self.switchstr()
-							await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+							await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 					else:
-						await ctx.send("The Heavy can\'t dodge")
+						await sendm(banlist, ctx, "The Heavy can\'t dodge")
 						self.switchstr()
-						await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 				elif starter.id == p2.id:
 					if not p2pick == 2:
@@ -612,22 +619,22 @@ class Fight(commands.Cog):
 							notsrtdef=120
 							notsrtatk=120
 							notsrtacc=60
-							await ctx.send("You are now dodging!")
+							await sendm(banlist, ctx, "You are now dodging!")
 							self.switchstr()
-							await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+							await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 						else:
-							await ctx.send("You are already dodging")
+							await sendm(banlist, ctx, "You are already dodging")
 							self.switchstr()
-							await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+							await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 					else:
-						await ctx.send("The Heavy can\'t dodge")
+						await sendm(banlist, ctx, "The Heavy can\'t dodge")
 						self.switchstr()
-						await ctx.send(f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif msg.content.lower() == "die" or msg.content.lower() == "end":
 				print("a2")
 				if msg.author.id == starter.id or msg.author.id == notstarter.id:
-					await ctx.send("You are ded, not big surprise")
+					await sendm(banlist, ctx, "You are ded, not big surprise")
 					self.bot.remove_listener(on_message)
 					return
 				else:
@@ -636,27 +643,27 @@ class Fight(commands.Cog):
 				if p1pick==None or p2pick==None:
 					if msg.author.id == starter.id:
 						starterhp=150
-						await ctx.send("You have chosen: Civilian")
-						await ctx.send(f"{notstarter.mention} What is your class? Available classes: ***Civilian, Scout, Heavy, Spy***")
+						await sendm(banlist, ctx, "You have chosen: Civilian")
+						await sendm(banlist, ctx, f"{notstarter.mention} What is your class? Available classes: ***Civilian, Scout, Heavy, Spy***")
 						p2pick=0
 					elif msg.author.id==notstarter.id:
 						notstarterhp=150
-						await ctx.send("You have chosen: Civilian")
-						await ctx.send(f"{starter.mention} starts off! What would you like to do? (if you need help, use .fighthelp command")
+						await sendm(banlist, ctx, "You have chosen: Civilian")
+						await sendm(banlist, ctx, f"{starter.mention} starts off! What would you like to do? (if you need help, use .fighthelp command")
 						p1pick=0
 			elif msg.content.lower()=="scout":
 				if p1pick==None or p2pick==None:
 					if msg.author.id == starter.id:
 						starterhp=125
 						srtscoutacc=55
-						await ctx.send("You have chosen: Scout")
-						await ctx.send(f"{notstarter.mention} What is your class? Available classes: ***Civilian, Scout, Heavy, Spy***")
+						await sendm(banlist, ctx, "You have chosen: Scout")
+						await sendm(banlist, ctx, f"{notstarter.mention} What is your class? Available classes: ***Civilian, Scout, Heavy, Spy***")
 						p2pick=1
 					elif msg.author.id == notstarter.id:
 						notstarterhp=125
 						notsrtscoutacc=55
-						await ctx.send("You have chosen: Scout")
-						await ctx.send(f"{starter.mention} starts off! What would you like to do? (if you need help, use .fighthelp command")
+						await sendm(banlist, ctx, "You have chosen: Scout")
+						await sendm(banlist, ctx, f"{starter.mention} starts off! What would you like to do? (if you need help, use .fighthelp command")
 						p1pick=1
 			elif msg.content.lower()=="heavy":
 				if p1pick==None or p2pick==None:
@@ -664,34 +671,36 @@ class Fight(commands.Cog):
 						starterhp=200
 						srtheavydmg=110
 						srtheavydodge=140
-						await ctx.send("You have chosen: Heavy")
-						await ctx.send(f"{notstarter.mention} What is your class? Available classes: ***Civilian, Scout, Heavy, Spy***")
+						await sendm(banlist, ctx, "You have chosen: Heavy")
+						await sendm(banlist, ctx, f"{notstarter.mention} What is your class? Available classes: ***Civilian, Scout, Heavy, Spy***")
 						p2pick=2
 					elif msg.author.id == notstarter.id:
 						notstarterhp=200
 						notsrtheavydmg=110
 						notsrtheavydodge=140
-						await ctx.send("You have chosen: Heavy")
-						await ctx.send(f"{starter.mention} starts off! What would you like to do? (if you need help, use .fighthelp command")
+						await sendm(banlist, ctx, "You have chosen: Heavy")
+						await sendm(banlist, ctx, f"{starter.mention} starts off! What would you like to do? (if you need help, use .fighthelp command")
 						p1pick=2
 			elif msg.content.lower() in ["spy", "spah"]:
 				if p2pick==None or p1pick==None:
 					if msg.author.id == starter.id:
 						starterhp=125
-						await ctx.send("You have chosen: Spy")
-						await ctx.send(f"{notstarter.mention} What is your class? Available classes: ***Civilian, Scout, Heavy, Spy***")
+						srtscoutacc=85
+						await sendm(banlist, ctx, "You have chosen: Spy")
+						await sendm(banlist, ctx, f"{notstarter.mention} What is your class? Available classes: ***Civilian, Scout, Heavy, Spy***")
 						p2pick=3
 					elif msg.author.id == notstarter.id:
-						notstarterhp=125
-						await ctx.send("You have chosen: Spy")
-						await ctx.send(f"{starter.mention} starts off! What would you like to do? (if you need help, use .fighthelp command")
+						starterhp=125
+						srtscoutacc=85
+						await sendm(banlist, ctx, "You have chosen: Spy")
+						await sendm(banlist, ctx, f"{starter.mention} starts off! What would you like to do? (if you need help, use .fighthelp command")
 						p1pick=3
 			elif(msg.content.lower()=="stats" and (msg.author.id==starter.id or msg.author.id==notstarter.id) and not p2pick == None and not p1pick == None):
 				classes=["Civilian", "Scout", "Heavy", "Spy"]
 				if(starter.id==p1.id):
-					await ctx.send(f"Player 1: {p1.mention} \n Player 2: {p2.mention} \n Player 1 HP: {starterhp} \n Player 2 HP: {notstarterhp} \n Player 1\'s class: {classes[p1pick]} \n Player 2\'s class: {classes[p2pick]} \n Player 1 charging massive haymaker: {srtmh} \n Player 2 charging massive haymaker: {notsrtmh} \n Player 1 Attack: {round((srtatk)*srtheavydmg/100)}% \n Player 1 Defend: {srtdef}% \n Player 1 Accuracy: {round((srtacc*notsrtheavydodge/100)*notsrtscoutacc/100)}% \n Player 2 Attack: {round((notsrtatk)*srtheavydmg/100)}% \n Player 2 Defend: {notsrtdef}% \n Player 2 Accuracy: {round((notsrtacc*srtheavydodge/100)*srtscoutacc/100)}%")
+					await sendm(banlist, ctx, f"Player 1: {p1.mention} \n Player 2: {p2.mention} \n Player 1 HP: {starterhp} \n Player 2 HP: {notstarterhp} \n Player 1\'s class: {classes[p1pick]} \n Player 2\'s class: {classes[p2pick]} \n Player 1 charging massive haymaker: {srtmh} \n Player 2 charging massive haymaker: {notsrtmh} \n Player 1 Attack: {round((srtatk)*srtheavydmg/100)}% \n Player 1 Defend: {srtdef}% \n Player 1 Accuracy: {round((srtacc*notsrtheavydodge/100)*notsrtscoutacc/100)}% \n Player 2 Attack: {round((notsrtatk)*srtheavydmg/100)}% \n Player 2 Defend: {notsrtdef}% \n Player 2 Accuracy: {round((notsrtacc*srtheavydodge/100)*srtscoutacc/100)}%")
 				elif(notstarter.id==p1.id):
-					await ctx.send(f"Player 1: {p1.mention} \n Player 2: {p2.mention} \n Player 1 HP: {notstarterhp} \n Player 2 HP: {starterhp} \n Player 1\'s class: {classes[p1pick]} \n Player 2\'s class: {classes[p2pick]} \n Player 1 charging massive haymaker: {notsrtmh} \n Player 2 charging massive haymaker: {srtmh} \n Player 1 Attack: {round((notsrtatk)*srtheavydmg/100)}% \n Player 1 Defend: {notsrtdef}% \n Player 1 Accuracy: {round((notsrtacc*srtheavydodge/100)*srtscoutacc/100)}% \n Player 2 Attack: {round((srtatk)*srtheavydmg/100)}% \n Player 2 Defend: {srtdef}% \n Player 2 Accuracy: {round((srtacc*notsrtheavydodge/100)*notsrtscoutacc/100)}%")
+					await sendm(banlist, ctx, f"Player 1: {p1.mention} \n Player 2: {p2.mention} \n Player 1 HP: {notstarterhp} \n Player 2 HP: {starterhp} \n Player 1\'s class: {classes[p1pick]} \n Player 2\'s class: {classes[p2pick]} \n Player 1 charging massive haymaker: {notsrtmh} \n Player 2 charging massive haymaker: {srtmh} \n Player 1 Attack: {round((notsrtatk)*srtheavydmg/100)}% \n Player 1 Defend: {notsrtdef}% \n Player 1 Accuracy: {round((notsrtacc*srtheavydodge/100)*srtscoutacc/100)}% \n Player 2 Attack: {round((srtatk)*srtheavydmg/100)}% \n Player 2 Defend: {srtdef}% \n Player 2 Accuracy: {round((srtacc*notsrtheavydodge/100)*notsrtscoutacc/100)}%")
 
 def setup(bot):
 	bot.add_cog(Fight(bot))

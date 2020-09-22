@@ -1,5 +1,12 @@
 import discord, random, datetime
+import asyncio
+import functools
+import itertools
+import math
+import youtube_dl
+from async_timeout import timeout
 from discord.ext import commands
+from send import banlist, sendm
 
 class Help(commands.Cog):
 	def __init__(self, bot):
@@ -13,15 +20,15 @@ class Help(commands.Cog):
 
 	@commands.command(help="Shows help menu")
 	async def help(self, ctx):
-		await ctx.send(embed=self.embed)
+		await sendm(banlist, ctx, embed=self.embed)
 
 	@commands.command(help="Shows about")
 	async def about(self, ctx):
-		await ctx.send("This a player duel bot made by @right hand man#0766 in discord.py, you can download the source code here: https://github.com/Ya1Boi/poggersbot v1.0.0")
+		await sendm(banlist, ctx, "This a player duel bot made by @right hand man#0766 in discord.py, you can download the source code here: https://github.com/Ya1Boi/poggersbot v1.0.0")
 
 	@commands.command(help="Shows credits")
 	async def credits(self, ctx):
-		await ctx.send("I would like to thank all the people that helped me: @JezzaProto#6483 for organizing my bad code, @weakpc#0568 ~~for being a pain in the ass~~ for motivating me to code, I also think that I haven\'t emphasized enough how @arii#0471 helped by making a whole language for her, so @arii#0471 for ~~giving me free money~~ for helping me through my tough times and all the people on my server that helped me")
+		await sendm(banlist, ctx, "I would like to thank all the people that helped me: @JezzaProto#6483 for organizing my bad code, @weakpc#0568 ~~for being a pain in the ass~~ for motivating me to code, I also think that I haven\'t emphasized enough how @arii#0471 helped by making a whole language for her, so @arii#0471 for ~~giving me free money~~ for helping me through my tough times and all the people on my server that helped me")
 
 	@commands.command(help="misc help")
 	async def mischelp(self, ctx):
@@ -37,14 +44,12 @@ class Help(commands.Cog):
 		embed.add_field(name=".b", value=":b:")
 		embed.add_field(name=".a", value=":a:")
 		embed.add_field(name=".bakamitai", value="Sings baka mitai, duh")
-		embed.add_field(name=".say (text)", value="Makes the bot say the text you gave")
-		embed.add_field(name=".saydel (text)", value="Makes the bot say the text you gave and deletes your message")
 		embed.add_field(name=".slaughter", value="the man behind the slaughter")
 		embed.add_field(name=".monke", value="monke")
 		embed.add_field(name=".arabfunny", value="very funny haha")
 		embed.add_field(name=".randomshit", value="idk")
 		embed.add_field(name=".cbt", value="cock and ball torture")
-		await ctx.send(embed=embed)
+		await sendm(banlist, ctx, embed=embed)
 
 def setup(bot):
 	bot.add_cog(Help(bot))
