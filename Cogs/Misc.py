@@ -73,7 +73,7 @@ class Misc(commands.Cog):
 			await sendm(banlist, ctx, txt)
 	
 	@commands.command(help="repeats the text you sent and deletes your message")
-	async def saydel(self, ctx, txt = None):
+	async def saydel(self, ctx, *, txt = None):
 		if(txt==None):
 			await sendm(banlist, ctx, "give me some text")
 		else:
