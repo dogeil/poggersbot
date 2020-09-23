@@ -15,13 +15,14 @@ class Bonklang(commands.Cog):
 		self.embed.add_field(name=".bonklang", value="Says command you are currently seeing")
 		self.embed.add_field(name=".translateto (text)", value="Translates what you sent to bonk'läl'pøg")
 		self.embed.add_field(name=".translatefrom (text)", value="Translates what you sent from bonk'läl'pøg to english")
-		self.embed.add_field(name=".bonklang about", value="Stuff about bonk")
+		self.embed.add_field(name=".bonklang about", value="Stuff about bonk language")
 		self.embed.add_field(name=".bonklang help", value="Explains the bonk language")
 
 	@commands.command(help="Base command for all bonklang commands.")
 	async def bonklang(self, ctx, *, Type = None):
 		if Type == None:
-			await sendm(banlist, ctx, embed=self.embed)
+			if(ctx.channel.id not in banlist):
+				await ctx.send(embed=self.embed)
 		elif Type.upper() == "HELP":
 			await sendm(banlist, ctx, "a=ł\nb=ľ\nc=ļ\nd=ĺ\ne=æ\nf=å\ng=ā\nh=ă\ni=ą\nj=à\nk=á\nl=l (duh)\nm=â\nn=ã\no=ä\np=p (duh)\nq=ø\nr=ž\ns=s (duh)\nt=ő\nu=u\nv=č\nw=w (duh)\nx=ķ\ny=y (duh)\nz=ň\nspace=\' \n ***The (duh) letters are known as equality letters and they are the same as in english***")
 		elif Type.upper() == "ABOUT":
@@ -85,7 +86,20 @@ class Bonklang(commands.Cog):
 			Text = Text.replace("ķ".upper(),"x".upper())
 			Text = Text.replace("y".upper(),"y".upper())
 			Text = Text.replace("ň".upper(),"z".upper())
-			await sendm(banlist, ctx, Text)
+			bruh=ctx.guild.roles
+			bruh2=[]
+			bruh3=[]
+			for i in bruh:
+				a=i.name
+				b=i.id
+				bruh2.append(a)
+				bruh3.append(b)
+			for idx, i in enumerate(bruh3):
+				txt=Text.replace(f"<@&{str(i)}>", bruh2[idx])
+				txt=txt.replace("@everyone", "everyone")
+				txt=txt.replace("@here", "here")
+				
+			await sendm(banlist, ctx, txt)
 
 	@commands.command(help="Translates into bonklang.")
 	async def translateto(self, ctx, *, Text = None):
@@ -145,7 +159,20 @@ class Bonklang(commands.Cog):
 			Text = Text.replace("x".upper(),"ķ".upper())
 			Text = Text.replace("y".upper(),"y".upper())
 			Text = Text.replace("z".upper(),"ň".upper())
-			await sendm(banlist, ctx, Text)
+			bruh=ctx.guild.roles
+			bruh2=[]
+			bruh3=[]
+			for i in bruh:
+				a=i.name
+				b=i.id
+				bruh2.append(a)
+				bruh3.append(b)
+			for idx, i in enumerate(bruh3):
+				txt=Text.replace(f"<@&{str(i)}>", bruh2[idx])
+				txt=txt.replace("@everyone", "everyone")
+				txt=txt.replace("@here", "here")
+				
+			await sendm(banlist, ctx, txt)
 
 def setup(bot):
 	bot.add_cog(Bonklang(bot))

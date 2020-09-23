@@ -7,6 +7,7 @@ import youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
 from send import banlist, sendm
+from discord.utils import get
 
 class Misc(commands.Cog):
 	def __init__(self, bot):
@@ -16,7 +17,20 @@ class Misc(commands.Cog):
 	async def ball(self, ctx, *, question=None):
 		if(question!=None):
 			responses = ["It is certain.","It is decidedly so.","Without a doubt.","Yes – definitely.","You may rely on it.","As I see it, yes.","Most likely.","Outlook good.","Yes.","Signs point to yes.","Reply hazy, try again.","Ask again later.","Better not tell you now.","Cannot predict now.","Concentrate and ask again.","Don't count on it.","My reply is no.","My sources say no.","Outlook not so good.","Very doubtful."]
-			await sendm(banlist, ctx, f"Question: {question}\n{random.choice(responses)}")
+			bruh=ctx.guild.roles
+			bruh2=[]
+			bruh3=[]
+			for i in bruh:
+				a=i.name
+				b=i.id
+				bruh2.append(a)
+				bruh3.append(b)
+			for idx, i in enumerate(bruh3):
+				txt=question.replace(f"<@&{str(i)}>", bruh2[idx])
+				txt=txt.replace("@everyone", "everyone")
+				txt=txt.replace("@here", "here")
+				
+			await sendm(banlist, ctx, f"Question: {txt}\n{random.choice(responses)}")
 		else:
 			await sendm(banlist, ctx, "give me a question, get an answer")
 
@@ -28,7 +42,7 @@ class Misc(commands.Cog):
 	async def ping(self, ctx):
 		await sendm(banlist, ctx, f"pong gaming \n" + "{:.1f}".format(self.bot.latency * 1000) +" ms")
 
-	@commands.command(help="roll die")
+	@commands.command(help="roll dice")
 	async def roll(self, ctx, num = None):
 		if num == None:
 			await sendm(banlist, ctx, "You need to give me a number")
@@ -37,6 +51,47 @@ class Misc(commands.Cog):
 		else:
 			roll = random.randint(1, int(num))
 			await sendm(banlist, ctx, f"Roll: {str(roll)}")
+	
+	@commands.command(help="repeats the text you sent")
+	async def say(self, ctx, *, txt = None):
+		if(txt==None):
+			await sendm(banlist, ctx, "give me some text")
+		else:
+			bruh=ctx.guild.roles
+			bruh2=[]
+			bruh3=[]
+			for i in bruh:
+				a=i.name
+				b=i.id
+				bruh2.append(a)
+				bruh3.append(b)
+			for idx, i in enumerate(bruh3):
+				txt=txt.replace(f"<@&{str(i)}>", bruh2[idx])
+				txt=txt.replace("@everyone", "everyone")
+				txt=txt.replace("@here", "here")
+				
+			await sendm(banlist, ctx, txt)
+	
+	@commands.command(help="repeats the text you sent and deletes your message")
+	async def saydel(self, ctx, txt = None):
+		if(txt==None):
+			await sendm(banlist, ctx, "give me some text")
+		else:
+			bruh=ctx.guild.roles
+			bruh2=[]
+			bruh3=[]
+			for i in bruh:
+				a=i.name
+				b=i.id
+				bruh2.append(a)
+				bruh3.append(b)
+			for idx, i in enumerate(bruh3):
+				txt=txt.replace(f"<@&{str(i)}>", bruh2[idx])
+				txt=txt.replace("@everyone", "everyone")
+				txt=txt.replace("@here", "here")
+				
+			await sendm(banlist, ctx, txt)
+		await ctx.message.delete()
 
 	@commands.command(help="baka mitai")
 	async def bakamitai(self, ctx):

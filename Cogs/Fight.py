@@ -39,11 +39,13 @@ class Fight(commands.Cog):
 
 	@commands.command(help="Shows help menu")
 	async def fighthelp(self, ctx):
-		await sendm(banlist, ctx, embed=self.embed)
+		if(ctx.channel.id not in banlist):
+			await ctx.send(embed=self.embed)
 
 	@commands.command(help="Displays all classes.", aliases=["class"])
 	async def _class(self, ctx):
-		await sendm(banlist, ctx, embed=self.classembed)
+		if(ctx.channel.id not in banlist):
+			await ctx.send(embed=self.classembed)
 
 	def switchstr(self):
 		global starter, notstarter, srtmh, notsrtmh, starterhp, notstarterhp, notsrtatk, srtatk, notsrtdef, srtdef, notsrtacc, srtacc, notsrtatkmode, srtatkmode, notsrtdefmode, srtdefmode, notsrtaccmode, srtaccmode, srtdodgemode, notsrtdodgemode, srtscoutacc, notsrtscoutacc, srtheavydmg, notsrtheavydmg, srtheavydodge, notsrtheavydodge

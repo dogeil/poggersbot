@@ -20,7 +20,8 @@ class Help(commands.Cog):
 
 	@commands.command(help="Shows help menu")
 	async def help(self, ctx):
-		await sendm(banlist, ctx, embed=self.embed)
+		if(ctx.channel.id not in banlist):
+			await ctx.send(embed=self.embed)
 
 	@commands.command(help="Shows about")
 	async def about(self, ctx):
@@ -28,7 +29,7 @@ class Help(commands.Cog):
 
 	@commands.command(help="Shows credits")
 	async def credits(self, ctx):
-		await sendm(banlist, ctx, "I would like to thank all the people that helped me: @JezzaProto#6483 for organizing my bad code, @weakpc#0568 ~~for being a pain in the ass~~ for motivating me to code, I also think that I haven\'t emphasized enough how @arii#0471 helped by making a whole language for her, so @arii#0471 for ~~giving me free money~~ for helping me through my tough times and all the people on my server that helped me")
+		await sendm(banlist, ctx, "I would like to thank all the people that helped me: @JezzaProto#6483 for organizing my bad code, @weakpc#0568 ~~for being a pain in the ass~~ for motivating me to code, I also think that I haven\'t emphasized enough how @arii#0471 helped by making a whole language for her, so @arii#0471 for ~~giving me free money~~ helping me through my tough times and all the people on my server that helped me")
 
 	@commands.command(help="misc help")
 	async def mischelp(self, ctx):
@@ -49,7 +50,10 @@ class Help(commands.Cog):
 		embed.add_field(name=".arabfunny", value="very funny haha")
 		embed.add_field(name=".randomshit", value="idk")
 		embed.add_field(name=".cbt", value="cock and ball torture")
-		await sendm(banlist, ctx, embed=embed)
+		embed.add_field(name=".say (text)", value="repeats the text you send")
+		embed.add_field(name=".saydel (text)",value="repeats the text you send and deletes your message")
+		if(ctx.channel.id not in banlist):
+			await ctx.send(embed=embed)
 
 def setup(bot):
 	bot.add_cog(Help(bot))

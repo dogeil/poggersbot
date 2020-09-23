@@ -10,6 +10,8 @@ from async_timeout import timeout
 from discord.ext import commands
 from send import banlist, sendm
 
+#banana
+
 bot = commands.AutoShardedBot(command_prefix = '.', description = "it fights dummy",case_insensitive=True)
 bot.remove_command('help')
 IgnoreImport = []
