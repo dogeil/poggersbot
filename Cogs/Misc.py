@@ -34,6 +34,32 @@ class Misc(commands.Cog):
 		else:
 			await sendm(banlist, ctx, "give me a question, get an answer")
 
+	@commands.command()
+	async def sex(self, ctx, *, sexperson2 = None):
+		if("!and" in sexperson2):
+			return
+		else: 
+			if(sexperson2==None):
+				await sendm(banlist, ctx, "give me someone to sex")
+				print("no person given")
+			else:
+				if(sexperson2.startswith("<@")):
+					sexperson2=sexperson2.replace("<@","")
+					sexperson2=sexperson2.replace("!","")
+					sexperson2=sexperson2.replace(">","")
+					sexid=int(sexperson2)
+					sexuser = self.bot.get_user(sexid)
+					RATE=random.randint(1,100)
+					sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexuser.name}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
+					if(ctx.channel.id not in banlist):
+						await ctx.send(embed=sexembed)
+				else:
+					RATE=random.randint(1,100)
+					sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexperson2}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
+					if(ctx.channel.id not in banlist):
+						await ctx.send(embed=sexembed)
+
+
 	@commands.command(help="pp size epik")
 	async def pp(self, ctx):
 		await sendm(banlist, ctx, f"8{'='*random.randint(1,10)}D")
