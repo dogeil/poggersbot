@@ -155,6 +155,10 @@ class Misc(commands.Cog):
 	@commands.command()
 	async def randomshit(self, ctx):
 		await sendm(banlist, ctx, "https://cdn.discordapp.com/attachments/742075556648058900/754210572488278127/The_engineer.txt")
+	
+	@commands.command()
+	async def pong(self, ctx):
+		await sendm(banlist, ctx, "ha")
 
 	@commands.command()
 	async def cbt(self, ctx):

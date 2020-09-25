@@ -34,7 +34,8 @@ class Help(commands.Cog):
 	@commands.command(help="misc help")
 	async def mischelp(self, ctx):
 		embed = discord.Embed(title="Engineer\'s Shit Club", description="These are the misc commands not related to fighting", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
-		embed.add_field(name=".ping", value="Says the bot\'s latency (ping)")
+		embed.add_field(name=".ping", value="Posts the bot\'s latency (ping)")
+		embed.add_field(name=".pong", value="very funny")
 		embed.add_field(name=".8ball (question)", value="8ball command that gives anwers to your questions")
 		embed.add_field(name=".pp", value="Randomly chooses your pp size, haha funny")
 		embed.add_field(name=".peepee", value="poopoo (and vice versa)")
