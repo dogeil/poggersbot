@@ -52,6 +52,8 @@ class Help(commands.Cog):
 		embed.add_field(name=".cbt", value="cock and ball torture")
 		embed.add_field(name=".say (text)", value="repeats the text you send")
 		embed.add_field(name=".saydel (text)",value="repeats the text you send and deletes your message")
+		embed.add_field(name=".sex (user mention/text)",value="gives a rate for the user of the command and the user/text given (runs on the same command as the other version of .sex)")
+		embed.add_field(name=".sex (user mention/text) !and(user mention/text)",value="gives a rate for the first user/text given and the second user/text given, to separate use \"!and\" (runs on the same command as the other version of .sex)")
 		if(ctx.channel.id not in banlist):
 			await ctx.send(embed=embed)
 
