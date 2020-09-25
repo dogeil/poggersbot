@@ -55,7 +55,7 @@ class Misc(commands.Cog):
 				sexid=int(sexperson2[0:19])
 				sexperson22 = self.bot.get_user(sexid).name
 			else:
-				return
+				sexperson22=sexpeoplelist[1]
 			sexperson22=sexpeoplelist[1]
 			RATE=random.randint(1,100)
 			sexembed=discord.Embed(title=f"sex rate of {sexperson11} and {sexperson22}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
