@@ -35,3 +35,6 @@ async def on_ready():
 keep_alive()
 token = os.environ.get("TOKEN")
 bot.run(token)
+"""
+dumb bot made by @right hand man#0766 v1.2.3, to run it yourself, make a file named .env and paste TOKEN=token in there and replace the lowercase token with your bot token * GITHUB: https://github.com/Ya1Boi/poggersbot *
+"""

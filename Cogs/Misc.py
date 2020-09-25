@@ -57,7 +57,7 @@ class Misc(commands.Cog):
 			else:
 				sexperson22=sexpeoplelist[1]
 			sexperson22=sexpeoplelist[1]
-			RATE=random.randint(1,100)
+			RATE=random.randint(0,100)
 			sexembed=discord.Embed(title=f"sex rate of {sexperson11} and {sexperson22}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
 			if(ctx.channel.id not in banlist):
 				await ctx.send(embed=sexembed)
@@ -71,12 +71,12 @@ class Misc(commands.Cog):
 					sexpeople=sexpeople.replace(">","")
 					sexid=int(sexpeople[0:19])
 					sexuser = self.bot.get_user(sexid)
-					RATE=random.randint(1,100)
+					RATE=random.randint(0,100)
 					sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexuser.name}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
 					if(ctx.channel.id not in banlist):
 						await ctx.send(embed=sexembed)
 				else:
-					RATE=random.randint(1,100)
+					RATE=random.randint(0,100)
 					sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexpeople}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
 					if(ctx.channel.id not in banlist):
 						await ctx.send(embed=sexembed)
@@ -183,6 +183,10 @@ class Misc(commands.Cog):
 	@commands.command()
 	async def a(self, ctx):
 		await sendm(banlist, ctx, ":a:")
+
+	@commands.command()
+	async def cock(self, ctx):
+		await sendm(banlist, ctx, ":chicken:")
 
 	@commands.command()
 	async def connectionterminated(self, ctx):

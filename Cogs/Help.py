@@ -25,7 +25,7 @@ class Help(commands.Cog):
 
 	@commands.command(help="Shows about")
 	async def about(self, ctx):
-		await sendm(banlist, ctx, "This a player duel bot made by @right hand man#0766 in discord.py, you can download the source code here: https://github.com/Ya1Boi/poggersbot v1.0.0")
+		await sendm(banlist, ctx, "This a player duel bot made by @right hand man#0766 in discord.py, you can download the source code here: https://github.com/Ya1Boi/poggersbot v1.2.3")
 
 	@commands.command(help="Shows credits")
 	async def credits(self, ctx):
@@ -55,6 +55,7 @@ class Help(commands.Cog):
 		embed.add_field(name=".saydel (text)",value="repeats the text you send and deletes your message")
 		embed.add_field(name=".sex (user mention/text)",value="gives a rate for the user of the command and the user/text given (runs on the same command as the other version of .sex)")
 		embed.add_field(name=".sex (user mention/text) !and(user mention/text)",value="gives a rate for the first user/text given and the second user/text given, to separate use \"!and\" (runs on the same command as the other version of .sex)")
+		embed.add_field(name=".cock", value=":chicken:")
 		if(ctx.channel.id not in banlist):
 			await ctx.send(embed=embed)
 
