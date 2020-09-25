@@ -31,21 +31,11 @@ class Fight(commands.Cog):
 		self.embed.add_field(name="balance", value="Balances your stats back to 100% (attack, accuracy and defense)")
 		self.embed.add_field(name="stats", value="This shows the current battle\'s statistics")
 		self.embed.add_field(name="end/die", value="Ends the fight you are currently on")
-		self.classembed = discord.Embed(title="Engineer\'s TF2 Club", description="These are the available classes to use in a fight", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
-		self.classembed.add_field(name="Civilian", value="No changes, absolutely balanced class")
-		self.classembed.add_field(name="Scout", value="+45% evade, -25 hp")
-		self.classembed.add_field(name="Heavy", value="+10% damage, +50 hp -40% evade, no dodge move")
-		self.classembed.add_field(name="Spy", value="-25 hp, +15 evade has 2 special moves:\n ***trickstab:*** Goes for a backstab that has 25% chance to hit a critical that does 40 dmg (if missed does a normal jab and decreases defense by 25% (caps out at 1%) \n***dead ringer:*** goes for a special evade (50% chance) in the next turn that: (if hit) gives spy defense (50%) against all attacks for this and the next turn, extra 15% evade and -10% attack")
 
 	@commands.command(help="Shows help menu")
 	async def fighthelp(self, ctx):
 		if(ctx.channel.id not in banlist):
 			await ctx.send(embed=self.embed)
-
-	@commands.command(help="Displays all classes.", aliases=["class"])
-	async def _class(self, ctx):
-		if(ctx.channel.id not in banlist):
-			await ctx.send(embed=self.classembed)
 
 	def switchstr(self):
 		global starter, notstarter, srtmh, notsrtmh, starterhp, notstarterhp, notsrtatk, srtatk, notsrtdef, srtdef, notsrtacc, srtacc, notsrtatkmode, srtatkmode, notsrtdefmode, srtdefmode, notsrtaccmode, srtaccmode, srtdodgemode, notsrtdodgemode, srtscoutacc, notsrtscoutacc, srtheavydmg, notsrtheavydmg, srtheavydodge, notsrtheavydodge
@@ -129,7 +119,7 @@ class Fight(commands.Cog):
 			starterhp = p2hp
 			notstarterhp = p1hp
 			notstarter = p1
-		await sendm(banlist, ctx, f"{starter.mention} What is your class? Available classes: ***Civilian, Scout, Heavy, Spy*** (if you need help, use .class command)")
+		await sendm(banlist, ctx, f"{starter.mention} Starts off! What would you like to do? (if you need help, use .fighthelp command)")
 
 		@self.bot.listen()
 		async def on_message(msg):
@@ -168,11 +158,11 @@ class Fight(commands.Cog):
 			global notsrtheavydodge
 
 			if msg.content.lower() == "quick one-two" and msg.author.id == starter.id:
-				attacks = round(((random.randint(1,100)/100*srtacc)*notsrtscoutacc/100)*notsrtheavydodge/100)
+				attacks = random.randint(1,100)
 				if attacks >= 50:
-					dmg=round(((random.randint(5,13)/100*srtatk)/(notsrtdef/100)*srtheavydmg/100))
+					dmg=random.randint(5,13)
 					notstarterhp-=dmg
-					if notstarterhp < 0:
+					if notstarterhp < 0: 
 						notstarterhp=0
 					if starterhp < 0:
 						starterhp=0
@@ -188,8 +178,8 @@ class Fight(commands.Cog):
 					else:
 						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 				else:
-					attack1dmg=round((random.randint(5,13)/100*srtatk)/(notsrtdef/100)*srtheavydmg/100)
-					attack2dmg=round((random.randint(5,13)/100*srtatk)/(notsrtdef/100)*srtheavydmg/100)
+					attack1dmg=(5,13)
+					attack2dmg=(5,13)
 					dmg=attack1dmg+attack2dmg
 					sample1damaged=notstarterhp-attack1dmg
 					notstarterhp-=dmg
@@ -239,9 +229,9 @@ class Fight(commands.Cog):
 					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif msg.content.lower()=="hook" and msg.author.id==starter.id:
-				chance=round(((random.randint(1,100)/100*srtacc)*notsrtscoutacc/100)*notsrtheavydodge/100)
+				chance=random.randint(1,100)
 				if chance >= 35:
-					dmg=round((25/100*srtatk)/(notsrtdef/100)*srtheavydmg/100)
+					dmg=25
 					notstarterhp-=dmg
 					if(notstarterhp<0):
 						notstarterhp=0
@@ -263,9 +253,9 @@ class Fight(commands.Cog):
 					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 			elif msg.content.lower()=="uppercut" and msg.author.id==starter.id:
-				chance=round(((random.randint(1,100)/100*srtacc)*notsrtscoutacc/100)*notsrtheavydodge/100)
+				chance=random.randint(1,100)
 				if chance >= 60:
-					dmg=round((random.randint(25,35)/100*srtatk)/(notsrtdef/100)*srtheavydmg/100)
+					dmg=(25,35)
 					notstarterhp-=dmg
 					if notstarterhp < 0:
 						notstarterhp=0
@@ -302,9 +292,9 @@ class Fight(commands.Cog):
 				srtdef=100
 				srtmh=False
 				notsrtmh=False
-				chance=round(((random.randint(1,100)/100*srtacc)*notsrtscoutacc/100)*notsrtheavydodge/100)
+				chance=random.randint(1,100)
 				if chance >= 50:
-					dmg=round((55/100*srtatk)/(notsrtdef/100)*srtheavydmg/100)
+					dmg=55
 					notstarterhp-=dmg
 					if notstarterhp < 0:
 						notstarterhp=0
@@ -407,22 +397,19 @@ class Fight(commands.Cog):
 						await sendm(banlist, ctx, "You are already dodging")
 						self.switchstr()
 						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
-			elif starter.id == p2.id:
-				if(not srtdodgemode):
-					srtdefmode=False
-					srtatkmode=False
-					srtaccmode=False
-					srtdodgemode=True
-					notsrtdef=120
-					notsrtatk=120
-					notsrtacc=60
-					await sendm(banlist, ctx, "You are now dodging!")
-					self.switchstr()
-					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+			elif msg.content.lower() == "die" or msg.content.lower() == "end":
+				print("a2")
+				if msg.author.id == starter.id or msg.author.id == notstarter.id:
+					await sendm(banlist, ctx, "You are ded, not big surprise")
+					self.bot.remove_listener(on_message)
+					return
 				else:
-					await sendm(banlist, ctx, "You are already dodging")
-					self.switchstr()
-					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+					print("a1")
+			elif(msg.content.lower()=="stats" and (msg.author.id==starter.id or msg.author.id==notstarter.id)):
+				if(starter.id==p1.id):
+					await sendm(banlist, ctx, f"Player 1: {p1.mention} \n Player 2: {p2.mention} \n Player 1 HP: {starterhp} \n Player 2 HP: {notstarterhp} \n Player 1 charging massive haymaker: {srtmh} \n Player 2 charging massive haymaker: {notsrtmh} \n Player 1 Attack: {srtatk}% \n Player 1 Defend: {srtdef}% \n Player 1 Accuracy: {srtacc}% \n Player 2 Attack: {notsrtatk}% \n Player 2 Defend: {notsrtdef}% \n Player 2 Accuracy: {notsrtacc}%")
+				elif(notstarter.id==p1.id):
+					await sendm(banlist, ctx, f"Player 1: {p2.mention} \n Player 2: {p1.mention} \n Player 1 HP: {notstarterhp} \n Player 2 HP: {starterhp} \n Player 1 charging massive haymaker: {notsrtmh} \n Player 2 charging massive haymaker: {srtmh} \n Player 1 Attack: {notsrtatk}% \n Player 1 Defend: {notsrtdef}% \n Player 1 Accuracy: {notsrtacc}% \n Player 2 Attack: {srtatk}% \n Player 2 Defend: {srtdef}% \n Player 2 Accuracy: {srtacc}%")
 
 def setup(bot):
 	bot.add_cog(Fight(bot))
