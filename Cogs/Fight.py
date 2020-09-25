@@ -407,22 +407,22 @@ class Fight(commands.Cog):
 						await sendm(banlist, ctx, "You are already dodging")
 						self.switchstr()
 						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
-				elif starter.id == p2.id:
-					if(not srtdodgemode):
-						srtdefmode=False
-						srtatkmode=False
-						srtaccmode=False
-						srtdodgemode=True
-						notsrtdef=120
-						notsrtatk=120
-						notsrtacc=60
-						await sendm(banlist, ctx, "You are now dodging!")
-						self.switchstr()
-						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
-					else:
-						await sendm(banlist, ctx, "You are already dodging")
-						self.switchstr()
-						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+			elif starter.id == p2.id:
+				if(not srtdodgemode):
+					srtdefmode=False
+					srtatkmode=False
+					srtaccmode=False
+					srtdodgemode=True
+					notsrtdef=120
+					notsrtatk=120
+					notsrtacc=60
+					await sendm(banlist, ctx, "You are now dodging!")
+					self.switchstr()
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
+				else:
+					await sendm(banlist, ctx, "You are already dodging")
+					self.switchstr()
+					await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
 
 def setup(bot):
 	bot.add_cog(Fight(bot))

@@ -44,7 +44,7 @@ class Misc(commands.Cog):
 				sexperson1=sexperson1.replace("<@","")
 				sexperson1=sexperson1.replace("!","")
 				sexperson1=sexperson1.replace(">","")
-				sexid=int(sexperson1[0:19])
+				sexid=int(sexperson1)
 				sexperson11 = self.bot.get_user(sexid).name
 			else:
 				sexperson11=sexpeoplelist[0]
@@ -52,7 +52,7 @@ class Misc(commands.Cog):
 				sexperson2=sexperson2.replace("<@","")
 				sexperson2=sexperson2.replace("!","")
 				sexperson2=sexperson2.replace(">","")
-				sexid=int(sexperson2[0:19])
+				sexid=int(sexperson2)
 				sexperson22 = self.bot.get_user(sexid).name
 			else:
 				sexperson22=sexpeoplelist[1]
@@ -69,7 +69,7 @@ class Misc(commands.Cog):
 					sexpeople=sexpeople.replace("<@","")
 					sexpeople=sexpeople.replace("!","")
 					sexpeople=sexpeople.replace(">","")
-					sexid=int(sexpeople[0:19])
+					sexid=int(sexpeople)
 					sexuser = self.bot.get_user(sexid)
 					RATE=random.randint(0,100)
 					sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexuser.name}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
