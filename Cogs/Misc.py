@@ -36,50 +36,24 @@ class Misc(commands.Cog):
 
 	@commands.command()
 	async def sex(self, ctx, *, sexpeople = None):
-		if("!and" in sexpeople):
-			sexpeoplelist=sexpeople.replace(" ", "").split("!and")
-			sexperson1=sexpeoplelist[0]
-			sexperson2=sexpeoplelist[1]
-			if(sexperson1.startswith("<@")):
-				sexperson1=sexperson1.replace("<@","")
-				sexperson1=sexperson1.replace("!","")
-				sexperson1=sexperson1.replace(">","")
-				sexid=int(sexperson1)
-				sexperson11 = self.bot.get_user(sexid).name
+		if(sexpeople==None):
+			sendm(banlist, ctx, "give me someone to sex")
+		else:
+			if(sexpeople.startswith("<@")):
+				sexpeople=sexpeople.replace("<@","")
+				sexpeople=sexpeople.replace("!","")
+				sexpeople=sexpeople.replace(">","")
+				sexid=int(sexpeople)
+				sexuser = self.bot.get_user(sexid)
+				RATE=random.randint(0,100)
+				sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexuser.name}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
+				if(ctx.channel.id not in banlist):
+					await ctx.send(embed=sexembed)
 			else:
-				sexperson11=sexpeoplelist[0]
-			if(sexperson2.startswith("<@")):
-				sexperson2=sexperson2.replace("<@","")
-				sexperson2=sexperson2.replace("!","")
-				sexperson2=sexperson2.replace(">","")
-				sexid=int(sexperson2)
-				sexperson22 = self.bot.get_user(sexid).name
-			else:
-				sexperson22=sexpeoplelist[1]
-			sexperson22=sexpeoplelist[1]
-			RATE=random.randint(0,100)
-			sexembed=discord.Embed(title=f"sex rate of {sexperson11} and {sexperson22}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
-			if(ctx.channel.id not in banlist):
-				await ctx.send(embed=sexembed)
-		else: 
-			if(sexpeople==None):
-				await sendm(banlist, ctx, "give me someone to sex")
-			else:
-				if(sexpeople.startswith("<@")):
-					sexpeople=sexpeople.replace("<@","")
-					sexpeople=sexpeople.replace("!","")
-					sexpeople=sexpeople.replace(">","")
-					sexid=int(sexpeople)
-					sexuser = self.bot.get_user(sexid)
-					RATE=random.randint(0,100)
-					sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexuser.name}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
-					if(ctx.channel.id not in banlist):
-						await ctx.send(embed=sexembed)
-				else:
-					RATE=random.randint(0,100)
-					sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexpeople}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
-					if(ctx.channel.id not in banlist):
-						await ctx.send(embed=sexembed)
+				RATE=random.randint(0,100)
+				sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexpeople}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
+				if(ctx.channel.id not in banlist):
+					await ctx.send(embed=sexembed)
 
 	@commands.command(help="pp size epik")
 	async def pp(self, ctx):

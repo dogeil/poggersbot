@@ -397,7 +397,7 @@ class Fight(commands.Cog):
 						await sendm(banlist, ctx, "You are already dodging")
 						self.switchstr()
 						await sendm(banlist, ctx, f"{starter.mention} is next! What would you like to do? Type your choice out in chat")
-			elif msg.content.lower() == "die" or msg.content.lower() == "end":
+			elif msg.content.lower() == "hwiwhwiwbwiwbwtbwiba8jw8hw8wbywbqosbivw7wb" or msg.content.lower() == "end":
 				print("a2")
 				if msg.author.id == starter.id or msg.author.id == notstarter.id:
 					await sendm(banlist, ctx, "You are ded, not big surprise")
