@@ -83,7 +83,7 @@ class Misc(commands.Cog):
 				txt=txt.replace("@everyone", "everyone")
 				txt=txt.replace("@here", "here")
 			await sendm(banlist, ctx, txt)
-	
+
 	@commands.command(help="repeats the text you sent and deletes your message")
 	async def saydel(self, ctx, *, txt = None):
 		if(txt==None):
