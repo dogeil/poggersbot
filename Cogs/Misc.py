@@ -1,4 +1,4 @@
-import discord, random, datetime, itertools, math, youtube_dl
+import discord, random, datetime, math
 from discord.ext import commands
 from send import banlist, sendm
 
