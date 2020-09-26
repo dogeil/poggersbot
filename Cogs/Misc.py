@@ -82,7 +82,6 @@ class Misc(commands.Cog):
 				txt=txt.replace(f"<@&{str(i)}>", bruh2[idx])
 				txt=txt.replace("@everyone", "everyone")
 				txt=txt.replace("@here", "here")
-				
 			await sendm(banlist, ctx, txt)
 	
 	@commands.command(help="repeats the text you sent and deletes your message")
@@ -102,7 +101,6 @@ class Misc(commands.Cog):
 				txt=txt.replace(f"<@&{str(i)}>", bruh2[idx])
 				txt=txt.replace("@everyone", "everyone")
 				txt=txt.replace("@here", "here")
-				
 			await sendm(banlist, ctx, txt)
 		await ctx.message.delete()
 
@@ -121,7 +119,7 @@ class Misc(commands.Cog):
 	@commands.command()
 	async def randomshit(self, ctx):
 		await sendm(banlist, ctx, "https://cdn.discordapp.com/attachments/742075556648058900/754210572488278127/The_engineer.txt")
-	
+
 	@commands.command()
 	async def pong(self, ctx):
 		await sendm(banlist, ctx, "ha")
