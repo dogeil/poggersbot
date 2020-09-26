@@ -1,5 +1,4 @@
-import discord, random, datetime, asyncio, functools, itertools, math, youtube_dl
-from async_timeout import timeout
+import discord, datetime, asyncio, functools, itertools, math, youtube_dl
 from discord.ext import commands
 from send import banlist, sendm
 
@@ -93,7 +92,6 @@ class Bonklang(commands.Cog):
 				txt=Text.replace(f"<@&{str(i)}>", bruh2[idx])
 				txt=txt.replace("@everyone", "everyone")
 				txt=txt.replace("@here", "here")
-				
 			await sendm(banlist, ctx, txt)
 
 	@commands.command(help="Translates into bonklang.")
