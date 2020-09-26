@@ -1,5 +1,4 @@
-import discord, random, datetime, asyncio, functools, itertools, math, youtube_dl
-from async_timeout import timeout
+import discord, datetime, asyncio, functools, itertools, math, youtube_dl
 from discord.ext import commands
 from send import banlist, sendm
 
@@ -40,7 +39,6 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		'options': '-vn',
 	}
 	ytdl = youtube_dl.YoutubeDL(YTDL_OPTIONS)
-	
 
 def setup(bot):
 	bot.add_cog(Music(bot))
