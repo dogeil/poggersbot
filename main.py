@@ -1,4 +1,4 @@
-import os, discord, traceback, functools, itertools
+import os, discord, traceback
 from keep_alive import keep_alive
 from discord.ext import commands
 from send import banlist, sendm
