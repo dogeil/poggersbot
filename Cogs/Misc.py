@@ -1,8 +1,6 @@
-import discord, random, datetime, asyncio, functools, itertools, math, youtube_dl
-from async_timeout import timeout
+import discord, random, datetime, functools, itertools, math, youtube_dl
 from discord.ext import commands
 from send import banlist, sendm
-from discord.utils import get
 
 class Misc(commands.Cog):
 	def __init__(self, bot):
@@ -24,7 +22,6 @@ class Misc(commands.Cog):
 				txt=question.replace(f"<@&{str(i)}>", bruh2[idx])
 				txt=txt.replace("@everyone", "everyone")
 				txt=txt.replace("@here", "here")
-				
 			await sendm(banlist, ctx, f"Question: {txt}\n{random.choice(responses)}")
 		else:
 			await sendm(banlist, ctx, "give me a question, get an answer")
@@ -56,7 +53,7 @@ class Misc(commands.Cog):
 
 	@commands.command(help="pong")
 	async def ping(self, ctx):
-		await sendm(banlist, ctx, f"pong gaming \n" + "{:.1f}".format(self.bot.latency * 1000) +" ms")
+		await sendm(banlist, ctx, f"pong gaming \n{round(self.bot.latency * 1000, 1)} ms")
 
 	@commands.command(help="roll dice")
 	async def roll(self, ctx, num = None):
