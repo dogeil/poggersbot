@@ -64,7 +64,7 @@ class Misc(commands.Cog):
 		else:
 			roll = random.randint(1, int(num))
 			await sendm(banlist, ctx, f"Roll: {str(roll)}")
-	
+
 	@commands.command(help="repeats the text you sent")
 	async def say(self, ctx, *, txt = None):
 		if(txt==None):
