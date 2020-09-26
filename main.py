@@ -1,4 +1,4 @@
-import os, discord, traceback, asyncio, functools, itertools, math, youtube_dl
+import os, discord, traceback, functools, itertools
 from keep_alive import keep_alive
 from discord.ext import commands
 from send import banlist, sendm
