@@ -1,10 +1,10 @@
-import os, discord, random, datetime, traceback, asyncio, functools, itertools, math, youtube_dl
+import os, discord, datetime, traceback, asyncio, functools, itertools, math, youtube_dl
 from keep_alive import keep_alive
-from async_timeout import timeout
 from discord.ext import commands
 from send import banlist, sendm
 
 #banana
+#apel
 
 bot = commands.AutoShardedBot(command_prefix = '.', description = "it fights dummy",case_insensitive=True)
 bot.remove_command('help')
@@ -29,6 +29,4 @@ async def on_ready():
 keep_alive()
 token = os.environ.get("TOKEN")
 bot.run(token)
-"""
-dumb bot made by @right hand man#0766 v1.2.3, to run it yourself, make a file named .env and paste TOKEN=token in there and replace the lowercase token with your bot token * GITHUB: https://github.com/Ya1Boi/poggersbot *
-"""
+# dumb bot made by @right hand man#0766 v1.2.3, to run it yourself, make a file named .env and paste TOKEN=token in there and replace the lowercase token with your bot token * GITHUB: https://github.com/Ya1Boi/poggersbot *
