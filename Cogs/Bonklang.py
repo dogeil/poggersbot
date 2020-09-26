@@ -164,7 +164,6 @@ class Bonklang(commands.Cog):
 				txt=Text.replace(f"<@&{str(i)}>", bruh2[idx])
 				txt=txt.replace("@everyone", "everyone")
 				txt=txt.replace("@here", "here")
-				
 			await sendm(banlist, ctx, txt)
 
 def setup(bot):
