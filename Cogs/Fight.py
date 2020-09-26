@@ -1,5 +1,4 @@
-import discord, random, datetime, asyncio, functools, itertools, math, youtube_dl
-from async_timeout import timeout
+import discord, random, datetime, functools, itertools, math, youtube_dl
 from discord.ext import commands
 from send import banlist, sendm
 
@@ -157,7 +156,7 @@ class Fight(commands.Cog):
 				if attacks >= 50:
 					dmg=random.randint(5,13)
 					notstarterhp-=dmg
-					if notstarterhp < 0: 
+					if notstarterhp < 0:
 						notstarterhp=0
 					if starterhp < 0:
 						starterhp=0
