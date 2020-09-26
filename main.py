@@ -1,11 +1,5 @@
-import os
+import os, discord, random, datetime, traceback, asyncio, functools, itertools, math, youtube_dl
 from keep_alive import keep_alive
-import discord, random, datetime, os, traceback
-import asyncio
-import functools
-import itertools
-import math
-import youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
 from send import banlist, sendm
