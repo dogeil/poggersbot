@@ -1,4 +1,4 @@
-import discord, datetime, asyncio, functools, itertools, math, youtube_dl
+import discord, datetime, functools, itertools, math, youtube_dl
 from discord.ext import commands
 from send import banlist, sendm
 
