@@ -6,7 +6,7 @@ import math
 import youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
-from send import banlist, sendm
+from send import banlist, sendm, sendem, log
 
 class Bonklang(commands.Cog):
 	def __init__(self, bot):
@@ -21,18 +21,22 @@ class Bonklang(commands.Cog):
 	@commands.command(help="Base command for all bonklang commands.")
 	async def bonklang(self, ctx, *, Type = None):
 		if Type == None:
-			if(ctx.channel.id not in banlist):
-				await ctx.send(embed=self.embed)
+			await log(ctx, "No subcommand received")
+			sendem(banlist, ctx, self.embed)
 		elif Type.upper() == "HELP":
+			await log(ctx, f"subcommand: {Type}")
 			await sendm(banlist, ctx, "a=ł\nb=ľ\nc=ļ\nd=ĺ\ne=æ\nf=å\ng=ā\nh=ă\ni=ą\nj=à\nk=á\nl=l (duh)\nm=â\nn=ã\no=ä\np=p (duh)\nq=ø\nr=ž\ns=s (duh)\nt=ő\nu=u\nv=č\nw=w (duh)\nx=ķ\ny=y (duh)\nz=ň\nspace=\' \n ***The (duh) letters are known as equality letters and they are the same as in english***")
 		elif Type.upper() == "ABOUT":
+			await log(ctx, f"subcommand: {Type}")
 			await sendm(banlist, ctx, "bonk'läl'pøg is a language made for @arii#0471, it's context is in english, so it's more like encryption and not a language")
 
 	@commands.command(help="Translating out of bonklang.")
 	async def translatefrom(self, ctx, *, Text = None):
 		if Text == None:
+			await log(ctx, "No text received")
 			await sendm(banlist, ctx, "You need to give me some text.")
 		else:
+			await log(ctx, f"Text received: {Text}")
 			Text = Text.replace("ł","a")
 			Text = Text.replace("ľ","b")
 			Text = Text.replace("ļ","c")
@@ -105,7 +109,9 @@ class Bonklang(commands.Cog):
 	async def translateto(self, ctx, *, Text = None):
 		if Text == None:
 			await sendm(banlist, ctx, "You need to give me some text")
+			await log(ctx, "No text received")
 		else:
+			await log(ctx, f"Text received: {Text}")
 			Text = Text.replace("a","ł")
 			Text = Text.replace("b","ľ")
 			Text = Text.replace("c","ļ")
