@@ -1,10 +1,11 @@
 import discord, random, datetime
 from discord.ext import commands
-from send import banlist, sendm, sendem, log
+from main import banlist, sendm, sendem, log
 
 class Misc(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
+
 
 	@commands.command(help="Ask the 8ball a question", aliases=["8ball"])
 	async def ball(self, ctx, *, question=None):

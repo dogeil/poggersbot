@@ -6,7 +6,7 @@ import math
 import youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
-from send import banlist, sendm, sendem, log
+from main import banlist, sendm, sendem, log
 
 # starter, notstarter, srtmh, notsrtmh, starterhp, notstarterhp, notsrtatk, srtatk, notsrtdef, srtdef, notsrtacc, srtacc, notsrtatkmode, srtatkmode, notsrtdefmode, srtdefmode, notsrtaccmode, srtaccmode, srtdodgemode, notsrtdodgemode = 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 
