@@ -1,21 +1,10 @@
 import discord, random, datetime
-import asyncio
-import functools
-import itertools
-import math
-import youtube_dl
-from async_timeout import timeout
 from discord.ext import commands
 from send import banlist, sendm, sendem, log
-from discord.utils import get
 
 class Misc(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
-
-	@commands.command(help="testing")
-	async def test(self, ctx):
-		ctx.send("no")
 
 	@commands.command(help="Ask the 8ball a question", aliases=["8ball"])
 	async def ball(self, ctx, *, question=None):

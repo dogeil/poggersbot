@@ -1,10 +1,4 @@
-import discord, random, datetime
-import asyncio
-import functools
-import itertools
-import math
-import youtube_dl
-from async_timeout import timeout
+import discord, datetime
 from discord.ext import commands
 from send import banlist, sendm, sendem, log
 
