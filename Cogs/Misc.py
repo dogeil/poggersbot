@@ -24,10 +24,10 @@ class Misc(commands.Cog):
 				txt=txt.replace("@here", "here")
 				
 			await sendm(banlist, ctx, f"Question: {txt}\n{random.choice(responses)}")
-			await log(ctx, f"8ball question: {txt}", "8ball")
+			await log(ctx, f"8ball question: {txt}")
 		else:
 			await sendm(banlist, ctx, "give me a question, get an answer")
-			await log(ctx, "8ball question not received", "8ball")
+			await log(ctx, "8ball question not received")
 
 	@commands.command()
 	async def sex(self, ctx, *, sexpeople = None):
