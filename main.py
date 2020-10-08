@@ -4,6 +4,7 @@ from discord.ext import commands
 import datetime
 
 banlist=[738052976723099751, 746241690028736582, 745686303479169105, 741919727110062198, 754459212658114698, 751614817412055081, 738064884159348848, 738064841658335283, 748977999285714996, 753064737721286836, 738064786218025111, 743875265532264479, 741303074857156658, 742386914383888456, 755854291063013539]
+
 async def log(ctx, extra="None"):
 	cmdtime=str(datetime.datetime.today()).replace("-", "/").split(".")[0]+" (UTC)"
 
@@ -35,8 +36,8 @@ async def sendem(banlist, ctx, embed):
 	else:
 		await ctx.send(embed=embed)
 
-
-#banana
+#methe
+#test banana
 
 bot = commands.AutoShardedBot(command_prefix = '.', description = "it fights dummy",case_insensitive=True)
 bot.remove_command('help')
