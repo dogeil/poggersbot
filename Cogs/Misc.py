@@ -45,11 +45,11 @@ class Misc(commands.Cog):
 				RATE=random.randint(0,100)
 				sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexuser.name}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
 				await sendem(banlist, ctx, sexembed)
-				await log(ctx, "User received")
+				await log(ctx, f"User received: {str(sexuser)}, Rate: {RATE}")
 			else:
 				RATE=random.randint(0,100)
 				sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexpeople}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
-				await log(ctx, "Text received")
+				await log(ctx, f"Text received: {sexpeople}, Rate: {RATE}")
 				await sendem(banlist, ctx, sexembed)
 
 	@commands.command(help="pp size epik")
@@ -85,11 +85,14 @@ class Misc(commands.Cog):
 					man=str(self.bot.get_user(int(test2[0])))
 				except:
 					pass
-				lmao=lmao.replace(f"<@{test2[0]}>", man, 1)
-				
-		await log(ctx, f"Text Spammed: {lmao}")
+				try:
+					lmao=lmao.replace(f"<@{test2[0]}>", man, 1)
+				except:
+					pass
 		
-		if("spam" in ctx.channel.name):
+
+			await log(ctx,f"Text spammed: {lmao}")
+		if("spam" in ctx.channel.name)		:
 			for i in range(1000):
 				await ctx.send(lmao)
 				
