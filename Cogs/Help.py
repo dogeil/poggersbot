@@ -26,7 +26,7 @@ class Help(commands.Cog):
 	@commands.command(help="Shows about")
 	async def about(self, ctx):
 		await log(ctx)
-		await sendm(banlist, ctx, "This a player duel bot made by @right hand man#0766 in discord.py, you can download the source code here: https://github.com/Ya1Boi/poggersbot v1.2.3")
+		await sendm(banlist, ctx, "This a player duel bot made by @retard#9070 in discord.py, you can download the source code here: https://github.com/Ya1Boi/poggersbot v1.2.3")
 
 	@commands.command(help="Shows credits")
 	async def credits(self, ctx):
@@ -58,6 +58,7 @@ class Help(commands.Cog):
 		embed.add_field(name=".saydel (text)",value="repeats the text you send and deletes your message")
 		embed.add_field(name=".sex (user mention/text)",value="gives a rate for the user of the command and the user/text given (runs on the same command as the other version of .sex)")
 		embed.add_field(name=".cock", value=":chicken:")
+		embed.add_field(name=".spam (text)", value="Sends the text you sent 1000 times, only works if the channel it's used in has \"spam\" in the name")
 		await sendem(banlist, ctx, embed)
 
 def setup(bot):

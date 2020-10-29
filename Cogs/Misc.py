@@ -34,7 +34,7 @@ class Misc(commands.Cog):
 	async def sex(self, ctx, *, sexpeople = None):
 		if(sexpeople==None):
 			await log(ctx, "No user/text received")
-			sendm(banlist, ctx, "give me someone to sex")
+			await sendm(banlist, ctx, "give me someone to sex")
 		else:
 			if(sexpeople.startswith("<@")):
 				sexpeople=sexpeople.replace("<@","")
@@ -55,8 +55,26 @@ class Misc(commands.Cog):
 	@commands.command(help="pp size epik")
 	async def pp(self, ctx):
 		await log(ctx)
-		await sendm(banlist, ctx, f"8{'='*random.randint(1,10)}D")
-
+		await sendm(banlist, ctx, f"8{'='*random.randint(1,10)}D")	
+		
+	@commands.command()
+	async def spam(self, ctx, *, lmao):
+		bruh=ctx.guild.roles
+		bruh2=[]
+		bruh3=[]
+		for i in bruh:
+			a=i.name
+			b=i.id
+			bruh2.append(a)
+			bruh3.append(b)
+		for idx, i in enumerate(bruh3):
+			txt=lmao.replace(f"<@&{str(i)}>", bruh2[idx])
+			txt=txt.replace("@everyone", "everyone")
+			lmao=txt.replace("@here", "here")
+		await log(ctx, f"Text Spammed: {lmao}")
+		if("spam" in ctx.channel.name):
+			for i in range(1000):
+			await ctx.send(lmao)
 	@commands.command(help="pong")
 	async def ping(self, ctx):
 		await log(ctx, "Current ping: {:.1f}".format(self.bot.latency * 1000)+" ms")
@@ -95,7 +113,7 @@ class Misc(commands.Cog):
 				txt=txt.replace("@here", "here")
 				
 			await sendm(banlist, ctx, txt)
-			await log(ctx, f"Text received: {txt}")
+			await log(ctx, f"***ITS THE OTHER WEE WOO COMMAND!!!***\nText received: {txt}")
 	
 	@commands.command(help="repeats the text you sent and deletes your message")
 	async def saydel(self, ctx, *, txt = None):
