@@ -67,14 +67,33 @@ class Misc(commands.Cog):
 			b=i.id
 			bruh2.append(a)
 			bruh3.append(b)
-		for idx, i in enumerate(bruh3):
-			txt=lmao.replace(f"<@&{str(i)}>", bruh2[idx])
-			txt=txt.replace("@everyone", "everyone")
-			lmao=txt.replace("@here", "here")
+			for idx, i in enumerate(bruh3):
+				lmao=lmao.replace(f"<@&{str(i)}>", bruh2[idx])
+			
+		lmao=lmao.replace("@everyone", "everyone")
+		lmao=lmao.replace("@here", "here")
+		
+		thing="<"
+		if(thing in lmao):
+			for thing in lmao:
+				test=lmao.split("<@")
+				try:
+					test2=test[1].split(">")
+				except:
+					test2=test[0].split(">")
+				try:
+					man=str(self.bot.get_user(int(test2[0])))
+				except:
+					pass
+				lmao=lmao.replace(f"<@{test2[0]}>", man, 1)
+				
 		await log(ctx, f"Text Spammed: {lmao}")
+		
 		if("spam" in ctx.channel.name):
 			for i in range(1000):
-			await ctx.send(lmao)
+				await ctx.send(lmao)
+				
+				
 	@commands.command(help="pong")
 	async def ping(self, ctx):
 		await log(ctx, "Current ping: {:.1f}".format(self.bot.latency * 1000)+" ms")
