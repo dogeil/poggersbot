@@ -73,7 +73,7 @@ class Misc(commands.Cog):
 		lmao=lmao.replace("@everyone", "everyone")
 		lmao=lmao.replace("@here", "here")
 		
-		thing="<"
+		thing="<@"
 		if(thing in lmao):
 			for thing in lmao:
 				test=lmao.split("<@")
@@ -91,7 +91,8 @@ class Misc(commands.Cog):
 					pass
 		
 
-			await log(ctx,f"Text spammed: {lmao}")
+		
+		await log(ctx,f"Text spammed: {lmao}")
 		if("spam" in ctx.channel.name)		:
 			for i in range(1000):
 				await ctx.send(lmao)
