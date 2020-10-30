@@ -47,7 +47,7 @@ class Misc(commands.Cog):
 				await sendem(banlist, ctx, sexembed)
 				await log(ctx, f"User received: {str(sexuser)}, Rate: {RATE}")
 			else:
-				RATE=random.randint(0,100)
+				RATE=random.randint(00,100)
 				sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexpeople}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
 				await log(ctx, f"Text received: {sexpeople}, Rate: {RATE}")
 				await sendem(banlist, ctx, sexembed)
@@ -92,10 +92,14 @@ class Misc(commands.Cog):
 		
 
 		
-		await log(ctx,f"Text spammed: {lmao}")
-		if("spam" in ctx.channel.name)		:
-			for i in range(1000):
-				await ctx.send(lmao)
+		if("spam" in ctx.channel.name):
+			if(len(lmao)>300):
+				await log(ctx, "Character Amount exceeded limit")
+				await ctx.send("Character Amount exceeds limit")
+			else:
+				await log(ctx, f"Text Spammed: {lmao}")
+				for i in range(1000):
+					await ctx.send(lmao)
 				
 				
 	@commands.command(help="pong")
