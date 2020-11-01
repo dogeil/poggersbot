@@ -1,4 +1,4 @@
-import discord, random, datetime
+import discord, random, datetime, re
 from discord.ext import commands
 from main import banlist, sendm, sendem, log
 
@@ -57,51 +57,6 @@ class Misc(commands.Cog):
 		await log(ctx)
 		await sendm(banlist, ctx, f"8{'='*random.randint(1,10)}D")	
 		
-	@commands.command()
-	async def spam(self, ctx, *, lmao):
-		bruh=ctx.guild.roles
-		bruh2=[]
-		bruh3=[]
-		for i in bruh:
-			a=i.name
-			b=i.id
-			bruh2.append(a)
-			bruh3.append(b)
-			for idx, i in enumerate(bruh3):
-				lmao=lmao.replace(f"<@&{str(i)}>", bruh2[idx])
-			
-		lmao=lmao.replace("@everyone", "everyone")
-		lmao=lmao.replace("@here", "here")
-		
-		thing="<@"
-		if(thing in lmao):
-			for thing in lmao:
-				test=lmao.split("<@")
-				try:
-					test2=test[1].split(">")
-				except:
-					test2=test[0].split(">")
-				try:
-					man=str(self.bot.get_user(int(test2[0])))
-				except:
-					pass
-				try:
-					lmao=lmao.replace(f"<@{test2[0]}>", man, 1)
-				except:
-					pass
-		
-
-		
-		if("spam" in ctx.channel.name):
-			if(len(lmao)>300):
-				await log(ctx, "Character Amount exceeded limit")
-				await ctx.send("Character Amount exceeds limit")
-			else:
-				await log(ctx, f"Text Spammed: {lmao}")
-				for i in range(1000):
-					await ctx.send(lmao)
-				
-				
 	@commands.command(help="pong")
 	async def ping(self, ctx):
 		await log(ctx, "Current ping: {:.1f}".format(self.bot.latency * 1000)+" ms")
