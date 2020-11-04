@@ -1,4 +1,4 @@
-import discord, random, datetime, re
+import discord, random, datetime
 from discord.ext import commands
 from main import banlist, sendm, sendem, log
 

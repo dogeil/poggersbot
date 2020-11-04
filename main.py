@@ -1,7 +1,6 @@
 from keep_alive import keep_alive
-import discord, os, traceback
+import discord, os, traceback, datetime, threading
 from discord.ext import commands
-import datetime
 
 banlist=[738052976723099751, 746241690028736582, 745686303479169105, 741919727110062198, 754459212658114698, 751614817412055081, 738064884159348848, 738064841658335283, 748977999285714996, 753064737721286836, 738064786218025111, 743875265532264479, 741303074857156658, 742386914383888456, 755854291063013539]
 
@@ -60,11 +59,12 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 @bot.event
 async def on_ready():
 	print('my body is ready')
-	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="your mom lmao"))
+	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
 
 keep_alive()
 token = os.environ.get("TOKEN")
 bot.run(token)
 """
-dumb bot made by @retard#9070 v1.2.3, to run it yourself, make a file named .env and paste TOKEN=token in there and replace the lowercase token with your bot token * GITHUB: https://github.com/Ya1Boi/poggersbot *
+dumb bot made by @retard#9070 v1.3.0, to run it yourself, make a file named .env and paste TOKEN=token in there and replace the lowercase token with your bot token * GITHUB: https://github.com/Ya1Boi/poggersbot *
 """
+
