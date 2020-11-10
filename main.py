@@ -38,6 +38,27 @@ async def sendem(banlist, ctx, embed):
 	else:
 		await ctx.send(embed=embed)
 
+async def get(id, variable=None):
+	found=None
+	file=open("users.txt", "r")
+	users=file.read()
+	userlist=users.split("\n")
+	file.close()
+	
+	if(variable==None):
+		for i in userlist:
+			if(str(id) in i and found==None):
+				found=i
+	else:
+		for i in userlist:
+			if(str(id) in i and found==None):
+				variables=i.split("{")[1].replace("}","").split(",")
+				for i in variables:
+					if(variable.upper()==i.split("=")[0].upper()):
+						found=i.split("=")[1]
+				
+	return found
+
 #methe
 #test banana
 
@@ -58,7 +79,7 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 
 @bot.event
 async def on_ready():
-	print('my body is ready')
+	print('my body is ready \n')
 	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
 
 keep_alive()
