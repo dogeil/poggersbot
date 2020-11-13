@@ -57,9 +57,6 @@ class Misc(commands.Cog):
 	async def pp(self, ctx):
 		await log(ctx)
 		await sendm(banlist, ctx, f"8{'='*random.randint(1,10)}D")	
-	@commands.command()
-	async def calculate(self, ctx, *, )
-	
 	@commands.command(help="pong")
 	async def ping(self, ctx):
 		await log(ctx, "Current ping: {:.1f}".format(self.bot.latency * 1000)+" ms")

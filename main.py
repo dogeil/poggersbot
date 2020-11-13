@@ -61,6 +61,7 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 
 @bot.event
 async def on_message(msg):
+	
 	listofwords=["im", "Im", "iM", "IM", "i'm", "I'm", "i'M", "I'M"]
 	for i in listofwords:
 		if (msg.content.startswith(i+" ") and msg.guild.id in serverdadlist and msg.channel.id not in banlist and not msg.channel.id == 739288768279740436):
