@@ -1,5 +1,6 @@
 import discord, random, datetime
 from discord.ext import commands
+from discord.ext.commands import has_permissions
 from main import banlist, sendm, sendem, log
 
 class Misc(commands.Cog):
@@ -29,7 +30,7 @@ class Misc(commands.Cog):
 		else:
 			await sendm(banlist, ctx, "give me a question, get an answer")
 			await log(ctx, "8ball question not received")
-
+	
 	@commands.command()
 	async def sex(self, ctx, *, sexpeople = None):
 		if(sexpeople==None):
@@ -56,7 +57,9 @@ class Misc(commands.Cog):
 	async def pp(self, ctx):
 		await log(ctx)
 		await sendm(banlist, ctx, f"8{'='*random.randint(1,10)}D")	
-		
+	@commands.command()
+	async def calculate(self, ctx, *, )
+	
 	@commands.command(help="pong")
 	async def ping(self, ctx):
 		await log(ctx, "Current ping: {:.1f}".format(self.bot.latency * 1000)+" ms")
