@@ -24,8 +24,8 @@ async def log(ctx, extra="None"):
 	else:
 		logchannel=bot.get_channel(763769618036031488)
 		otherlogchannel=bot.get_channel(771455922215583814)
-		await logchannel.send(f"Command .{cmdname} used by {cmduser} at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: \"{extra}\"\n")
-		await otherlogchannel.send(f"Command .{cmdname} used by {cmduser} at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: \"{extra}\"\n")
+		await logchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
+		await otherlogchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
 
 
 async def sendm(banlist, ctx, text=""):
