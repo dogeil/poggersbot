@@ -24,8 +24,8 @@ async def log(ctx, extra="None"):
 	else:
 		logchannel=bot.get_channel(763769618036031488)
 		otherlogchannel=bot.get_channel(771455922215583814)
-		await logchannel.send(f"Command .{cmdname} used by {cmduser} at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: \"{extra}\"\n")
-		await otherlogchannel.send(f"Command .{cmdname} used by {cmduser} at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: \"{extra}\"\n")
+		await logchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
+		await otherlogchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
 
 
 async def sendm(banlist, ctx, text=""):
@@ -61,10 +61,9 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 
 @bot.event
 async def on_message(msg):
-	
 	listofwords=["im", "Im", "iM", "IM", "i'm", "I'm", "i'M", "I'M"]
 	for i in listofwords:
-		if (msg.content.startswith(i+" ") and msg.guild.id in serverdadlist and msg.channel.id not in banlist and not msg.channel.id == 739288768279740436):
+		if (msg.content.startswith(i+" ") and msg.guild.id in serverdadlist and msg.channel.id not in banlist and not msg.channel.id == 739288768279740436 and not msg.channel.id == 745843895811965051):
 			txt="Hi, "+msg.content.replace(i+" ","",1)+", I'm dad!"
 			bruh=msg.guild.roles
 			bruh2=[]
