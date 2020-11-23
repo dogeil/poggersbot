@@ -1,6 +1,5 @@
 import discord, random, datetime
 from discord.ext import commands
-from discord.ext.commands import has_permissions
 from main import banlist, sendm, sendem, log
 
 class Misc(commands.Cog):
@@ -56,7 +55,10 @@ class Misc(commands.Cog):
 	@commands.command(help="pp size epik")
 	async def pp(self, ctx):
 		await log(ctx)
-		await sendm(banlist, ctx, f"8{'='*random.randint(1,10)}D")	
+		if(ctx.author.id==663626592823541760):
+			await sendm(banlist, ctx, f"8{'='*20}D")
+		else:	
+			await sendm(banlist, ctx, f"8{'='*random.randint(1,10)}D")	
 	@commands.command(help="pong")
 	async def ping(self, ctx):
 		await log(ctx, "Current ping: {:.1f}".format(self.bot.latency * 1000)+" ms")
