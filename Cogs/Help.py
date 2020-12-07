@@ -11,7 +11,6 @@ class Help(commands.Cog):
 		self.embed.add_field(name=".about", value="Stuff about the creator and the bot")
 		self.embed.add_field(name=".credits", value="Credits to all the people who helped me with this bot")
 		self.embed.add_field(name=".invite", value="The bot\'s invite: https://tinyurl.com/poggers-bot")
-		self.embed.add_field(name=".premium", value="Explains the premium features and how to get them")
 		self.embed.set_thumbnail(url="https://media.discordapp.net/attachments/739303210204004383/745318242284863608/250px-Pugilists_Protector.png")
 
 	@commands.command(help="Shows help menu")
@@ -23,12 +22,7 @@ class Help(commands.Cog):
 	async def invite(self, ctx):
 		await log(ctx)
 		await sendm(banlist, ctx, "https://tinyurl.com/poggers-bot")
-		
-	@commands.command()
-	async def premium(self, ctx):
-		await log(ctx)
-		await sendm(banlist, ctx, "**The premium for this bot doesn't give you anything in return yet**, you can still achieve premium if you want to support me, there are three premium levels \n \n Level 1: the least additions, you can get it by sending me any steam item worth at least 20 cents/5 refined metal \n \n Level 2: All the extra additions (I'm still working on those), level 2 costs any steam item worth more than 80 cents/20 refined metal \n \n Level 3: All the extra additions, you can also ask for anything for me to add to this bot, as long as it's not too complex, that I'll add it, level 3 costs any steam item worth more than one Team Fortress 2 Mann Co. Crate Key (I can't give an exact price for the level 3 since the price of the Key varies a lot, you can check the price on the Steam community market)\n \n The steam trade link you are supposed to send the items: https://steamcommunity.com/tradeoffer/new/?partner=1101449828&token=BjWbFQjZ \n \n **I'm still working on adding premium additions, if you have an idea, feel free to share it** \n \n **Premium stays with you forever, you can also buy one premium level and then upgrade to another one later** \n \n Level 4: i just give you the token of this bot (full control of the bot), costs one Team Fortress 2 Unusual hat worth more than 30 keys \n **I made level 4 as a joke but if you actually do it, I'll gladly accept it** \n \n Reasons to support me: \n I like money")
-		
+	
 	@commands.command(help="Shows about")
 	async def about(self, ctx):
 		await log(ctx)
