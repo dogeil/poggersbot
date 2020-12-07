@@ -2,15 +2,14 @@
 name = "utterexhaustedrobodoc"
 version = "1.0.0"
 description = "A Simple discord bot about player duels and some other stuff too"
-authors = ["@engineer tf3#0776"]
+authors = ["@retard#9070"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 "discord.py" = "^1.4.1"
 flask = "^1.1.2"
 youtube-dl = "^2020.9.20"
-PyNaCl = "^1.4.0"
-cryptography = "^3.1.1"
+six = "^1.15.0"
 
 [tool.poetry.dev-dependencies]
 

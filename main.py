@@ -4,12 +4,17 @@ from discord.ext import commands
 
 banlist=[778722406344556554]
 
+fightlist=[]
+
 async def log(ctx, extra="None"):
 	cmdtime=str(datetime.datetime.today()).replace("-", "/").split(".")[0]+" (UTC)"
 
 	cmduser=ctx.author.name+"#"+ctx.author.discriminator
 
-	cmdname=ctx.command.name
+	try:
+		cmdname=ctx.command.name
+	except:
+		cmdname="(dad)"
 
 	if(cmdname=="ball"):
 		cmdname="8ball"
@@ -20,9 +25,10 @@ async def log(ctx, extra="None"):
 	if(ctx.channel.id in banlist):
 		return
 	else:
-		logchannel=bot.get_channel(763769618036031488)
+		logchannel=bot.get_channel(781124111216017458)
+		otherlogchannel=bot.get_channel(763769618036031488)
 		await logchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
-
+		await otherlogchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
 
 async def sendm(banlist, ctx, text=""):
 	if(ctx.channel.id in banlist):
@@ -59,7 +65,7 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 async def on_message(msg):
 	listofwords=["im", "Im", "iM", "IM", "i'm", "I'm", "I'M", "i'M"]
 	for i in listofwords:
-		if (msg.content.startswith(i+" ") and not msg.channel.id in banlist):
+		if (msg.content.startswith(i+" ") and not msg.channel.id in banlist and not msg.author.id==741811813615927307):
 			txt="Hi, "+msg.content.replace(i+" ","",1)+", I'm dad!"
 			bruh=msg.guild.roles
 			bruh2=[]
@@ -76,6 +82,10 @@ async def on_message(msg):
 			if("gay" in txt.lower() or "homosexual" in txt.lower()):
 				txt="I know"
 			await msg.channel.send(txt)
+			await log(await bot.get_context(msg), msg.content)
+			
+		
+			
 	await bot.process_commands(msg)
 
 @bot.event
@@ -83,13 +93,22 @@ async def on_ready():
 	print('my body is ready \n')
 	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
 
-
-
+@bot.command()
+async def fight(ctx, player2 : discord.Member):
+	
+	await log(ctx)
+	
+	fightlist.append(f"{ctx.author.id}(100,{player2.id}(100-{ctx.channel.id}")
+	
+	await sendm(banlist, ctx, f"{ctx.author.mention} starts, the only thing working is punch for testing")
+	
 keep_alive()
 token = os.environ.get("TOKEN")
 bot.run(token)
 
 """
-dumb bot made by @retard#9070 v1.3.0, to run it yourself, make a file named .env and paste TOKEN=token in there and replace the lowercase token with your bot token * GITHUB: https://github.com/Ya1Boi/poggersbot *
+dumb bot made by @retard#9070, to run it yourself, check the README
+
+GITHUB: https://github.com/Ya1Boi/poggersbot
 """
 
