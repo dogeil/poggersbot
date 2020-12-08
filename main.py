@@ -25,6 +25,7 @@ async def log(ctx, extra="None"):
 	if(ctx.channel.id in banlist):
 		return
 	else:
+		extra = extra.replace("`", "")
 		logchannel=bot.get_channel(781124111216017458)
 		otherlogchannel=bot.get_channel(763769618036031488)
 		await logchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
