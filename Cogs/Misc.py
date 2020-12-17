@@ -41,10 +41,10 @@ class Misc(commands.Cog):
 				if(not i in allowed):
 					await log(ctx, f"Used not allowed characters: {stuff}")
 					await sendm(banlist, ctx, f"One of the characters are not allowed \n \nAllowed characters: {allowed}")
-				else:
-					calc=eval(stuff)
-					await log(ctx, f"Calculation was succesful: {stuff}={calc}")
-					await sendm(banlist, ctx, f"Original calculation: {stuff} \n \nResult: {calc}")
+					return False
+			calc=eval(stuff)
+			await log(ctx, f"Calculation was succesful: {stuff}={calc}")
+			await sendm(banlist, ctx, f"Original calculation: {stuff} \n \nResult: {calc}")
 					
 	@commands.command()	
 	async def sex(self, ctx, *, sexpeople = None):
