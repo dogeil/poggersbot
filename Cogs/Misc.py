@@ -31,6 +31,22 @@ class Misc(commands.Cog):
 			await log(ctx, "8ball question not received")
 	
 	@commands.command()
+	async def calc(self, ctx, *, stuff=None):
+		if(stuff==None):
+			await log(ctx, "Didn't provide any calculation")
+			await sendm(banlist, ctx, "You need to give me something to calculate in the message as the command")
+		else:
+			allowed=list("1234567890+*/-")
+			for i in stuff:
+				if(not i in allowed):
+					await log(ctx, f"Used not allowed characters: {stuff}")
+					await sendm(banlist, ctx, f"One of the characters are not allowed \n \nAllowed characters: {allowed}")
+				else:
+					calc=eval(stuff)
+					await log(ctx, f"Calculation was succesful: {stuff}={calc}")
+					await sendm(banlist, ctx, f"Original calculation: {stuff} \n \nResult: {calc}")
+					
+	@commands.command()	
 	async def sex(self, ctx, *, sexpeople = None):
 		if(sexpeople==None):
 			await log(ctx, "No user/text received")
@@ -59,7 +75,8 @@ class Misc(commands.Cog):
 			await sendm(banlist, ctx, f"8{'='*20}D")
 		else:	
 			await sendm(banlist, ctx, f"8{'='*random.randint(1,10)}D")	
-	@commands.command(help="pong")
+			
+	@commands.command(help="pong (bot latency)")
 	async def ping(self, ctx):
 		await log(ctx, "Current ping: {:.1f}".format(self.bot.latency * 1000)+" ms")
 		await sendm(banlist, ctx, f"pong gaming \n" + "{:.1f}".format(self.bot.latency * 1000) +" ms")

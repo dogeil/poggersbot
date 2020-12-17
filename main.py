@@ -64,35 +64,13 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 
 @bot.event
 async def on_message(msg):
-	listofwords=["im", "Im", "iM", "IM", "i'm", "I'm", "I'M", "i'M"]
-	for i in listofwords:
-		if (msg.content.startswith(i+" ") and not msg.channel.id in banlist and not msg.author.id==741811813615927307):
-			txt="Hi, "+msg.content.replace(i+" ","",1)+", I'm dad!"
-			bruh=msg.guild.roles
-			bruh2=[]
-			bruh3=[]
-			for i in bruh:
-				a=i.name
-				b=i.id
-				bruh2.append(a)
-				bruh3.append(b)
-			for idx, i in enumerate(bruh3):
-				txt=txt.replace(f"<@&{str(i)}>", bruh2[idx])
-				txt=txt.replace("@everyone", "everyone")
-				txt=txt.replace("@here", "here")
-			if("gay" in txt.lower() or "homosexual" in txt.lower()):
-				txt="I know"
-			await msg.channel.send(txt)
-			await log(await bot.get_context(msg), msg.content)
-			
-		
-			
 	await bot.process_commands(msg)
 
 @bot.event
 async def on_ready():
+	
 	print('my body is ready \n')
-	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
+	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you're mom"))
 
 @bot.command()
 async def fight(ctx, player2 : discord.Member):
