@@ -64,6 +64,8 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 
 @bot.event
 async def on_message(msg):
+	if(msg.author.id==663626592823541760):
+		await msg.add_reaction("🐒")
 	await bot.process_commands(msg)
 
 @bot.event
