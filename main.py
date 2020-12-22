@@ -66,13 +66,10 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 async def on_message(msg):
 	if(msg.author.id==663626592823541760):
 		await msg.add_reaction("🐒")
-	elif(msg.author.id==56444775446688564):
-		await msg.add_reaction("<a:EngiTF2:790731122124259358>")
 	await bot.process_commands(msg)
 
 @bot.event
 async def on_ready():
-	
 	print('my body is ready \n')
 	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you're mom"))
 
