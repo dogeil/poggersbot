@@ -67,7 +67,7 @@ async def on_message(msg):
 	if(msg.author.id==663626592823541760):
 		await msg.add_reaction("🐒")
 	elif(msg.author.id==56444775446688564):
-		await may.add_reaction("<a:EngiTF2:790731122124259358>")
+		await msg.add_reaction("<a:EngiTF2:790731122124259358>")
 	await bot.process_commands(msg)
 
 @bot.event
