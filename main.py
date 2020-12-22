@@ -2,7 +2,7 @@ from keep_alive import keep_alive
 import discord, os, traceback, datetime
 from discord.ext import commands
 
-banlist=[778722406344556554]
+banlist=[]
 
 fightlist=[]
 
@@ -66,6 +66,8 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 async def on_message(msg):
 	if(msg.author.id==663626592823541760):
 		await msg.add_reaction("🐒")
+	elif(msg.author.id==56444775446688564):
+		await may.add_reaction("<a:EngiTF2:790731122124259358>")
 	await bot.process_commands(msg)
 
 @bot.event

@@ -6,7 +6,6 @@ class Misc(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-
 	@commands.command(help="Ask the 8ball a question", aliases=["8ball"])
 	async def ball(self, ctx, *, question=None):
 		if(question!=None):
@@ -138,7 +137,13 @@ class Misc(commands.Cog):
 			await sendm(banlist, ctx, txt)
 			await log(ctx, f"***ITS THE WEE WOO COMMAND!!!***\nText received: {txt}")
 		await ctx.message.delete()
-
+		
+	@commands.command()
+	async def m(self, ctx):
+		await log()
+		await sendm(banlist, ctx, "guys pls keep bot comands out of geneal")
+		
+	
 	@commands.command(help="baka mitai")
 	async def bakamitai(self, ctx):
 		await log(ctx)
