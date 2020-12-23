@@ -64,23 +64,12 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 
 @bot.event
 async def on_message(msg):
-	if(msg.author.id==663626592823541760):
-		await msg.add_reaction("🐒")
 	await bot.process_commands(msg)
 
 @bot.event
 async def on_ready():
 	print('my body is ready \n')
 	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you're mom"))
-
-@bot.command()
-async def fight(ctx, player2 : discord.Member):
-	
-	await log(ctx)
-	
-	fightlist.append(f"{ctx.author.id}(100,{player2.id}(100-{ctx.channel.id}")
-	
-	await sendm(banlist, ctx, f"{ctx.author.mention} starts, the only thing working is punch for testing")
 	
 keep_alive()
 token = os.environ.get("TOKEN")
