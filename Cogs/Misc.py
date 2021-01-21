@@ -139,9 +139,9 @@ class Misc(commands.Cog):
 		await ctx.message.delete()
 		
 	@commands.command()
-	async def m(self, ctx):
+	async def uwu(self, ctx):
 		await log()
-		await sendm(banlist, ctx, "guys pls keep bot comands out of geneal")
+		await sendm(banlist, ctx, "no")
 		
 	
 	@commands.command(help="baka mitai")

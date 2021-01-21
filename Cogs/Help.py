@@ -59,6 +59,7 @@ class Help(commands.Cog):
 		embed.add_field(name=".sex (user mention/text)",value="gives a rate for the user of the command and the user/text given (runs on the same command as the other version of .sex)")
 		embed.add_field(name=".cock", value=":chicken:")
 		embed.add_field(name=".calc", value="Calculates whatever you say after the command (only certain characters are allowed)")
+		embed.add_field(name=".uwu", value="no lol")
 		await sendem(banlist, ctx, embed)
 
 def setup(bot):
