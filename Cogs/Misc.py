@@ -140,7 +140,7 @@ class Misc(commands.Cog):
 		
 	@commands.command()
 	async def uwu(self, ctx):
-		await log()
+		await log(ctx)
 		await sendm(banlist, ctx, "no")
 		
 	
