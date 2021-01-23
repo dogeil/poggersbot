@@ -38,7 +38,7 @@ class Misc(commands.Cog):
 			await log(ctx, "Didn't provide any calculation")
 			await sendm(banlist, ctx, "You need to give me something to calculate in the message as the command")
 		else:
-			allowed=list("1234567890+*/-.() ")
+			allowed=list("1234567890+*/-.()÷×^ ")
 			for i in stuff:
 				if(not i in allowed):
 					await log(ctx, f"Used not allowed characters: {stuff}")
