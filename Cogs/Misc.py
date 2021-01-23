@@ -31,22 +31,24 @@ class Misc(commands.Cog):
 	
 	@commands.command()
 	async def calc(self, ctx, *, stuff=None):
+		thebruh=stuff
 		stuff=stuff.replace("÷", "/")
 		stuff=stuff.replace("×", "*")
 		stuff=stuff.replace("^", "**")
+		stuff=stuff.replace("x", "*")
 		if(stuff==None):
 			await log(ctx, "Didn't provide any calculation")
 			await sendm(banlist, ctx, "You need to give me something to calculate in the message as the command")
 		else:
-			allowed=list("1234567890+*/-.()÷×^ ")
+			allowed=list("1234567890+*/-.()÷×^x ")
 			for i in stuff:
 				if(not i in allowed):
 					await log(ctx, f"Used not allowed characters: {stuff}")
 					await sendm(banlist, ctx, f"One of the characters are not allowed \n \nAllowed characters: {allowed}")
 					return False
 			calc=eval(stuff)
-			await log(ctx, f"Calculation was succesful: {stuff}={calc}")
-			await sendm(banlist, ctx, f"Original calculation: {stuff} \n \nResult: {calc}")
+			await log(ctx, f"Calculation was succesful: {thebruh}={calc}")
+			await sendm(banlist, ctx, f"Original calculation: {thebruh} \n \nResult: {calc}")
 					
 	@commands.command()	
 	async def sex(self, ctx, *, sexpeople = None):
