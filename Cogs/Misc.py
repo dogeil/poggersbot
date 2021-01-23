@@ -31,6 +31,9 @@ class Misc(commands.Cog):
 	
 	@commands.command()
 	async def calc(self, ctx, *, stuff=None):
+		stuff=stuff.replace("÷", "/")
+		stuff=stuff.replace("×", "*")
+		stuff=stuff.replace("^", "**")
 		if(stuff==None):
 			await log(ctx, "Didn't provide any calculation")
 			await sendm(banlist, ctx, "You need to give me something to calculate in the message as the command")
