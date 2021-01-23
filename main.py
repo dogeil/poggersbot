@@ -64,9 +64,9 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 
 @bot.event
 async def on_message(msg):
-	if("sex" in msg.content.lower()):
+	if(" sex " in " "+msg.content.lower()+" "):
 		await msg.add_reaction("<:now:788186385910726716>")
-	if("sus" in msg.content.lower()):
+	if(" sus " in " "+msg.content.lower()+" "):
 		await msg.add_reaction("<:sus:799494414661582858>")
 	await bot.process_commands(msg)
 
