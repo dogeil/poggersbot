@@ -8,7 +8,10 @@ class Misc(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_command_error(self, ctx, error):
-		await ctx.send(error)
+		if isinstance(error, commands.CommandNotFound):
+			return
+		else:
+			await ctx.send(error)
 
 	@commands.command(help="Ask the 8ball a question", aliases=["8ball"])
 	async def ball(self, ctx, *, question=None):
