@@ -16,7 +16,7 @@ class Help(commands.Cog):
 	@commands.command(help="Shows help menu")
 	async def help(self, ctx):
 		await log(ctx)
-		await ctx.send(self.embed)
+		await ctx.send(embed=self.embed)
 	
 	@commands.command(help="The invite")
 	async def invite(self, ctx):
@@ -60,7 +60,7 @@ class Help(commands.Cog):
 		embed.add_field(name=".cock", value=":chicken:")
 		embed.add_field(name=".calc", value="Calculates whatever you say after the command (only certain characters are allowed)")
 		embed.add_field(name=".uwu", value="no lol")
-		await ctx.send(embed)
+		await ctx.send(embed=embed)
 
 def setup(bot):
 	bot.add_cog(Help(bot))
