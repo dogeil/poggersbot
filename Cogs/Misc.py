@@ -15,7 +15,7 @@ class Misc(commands.Cog):
 			
 	@commands.command()
 	async def amongus(self, ctx):
-		await ctx.send("https://media.discordapp.net/attachments/741804760239308873/815915479705190406/16145997448175654420613429936671.png")
+		await ctx.send("https://media.discordapp.net/attachments/741804760239308873/815920499070206042/among_us.png")
 	@commands.command(help="Ask the 8ball a question", aliases=["8			ball"])
 	async def ball(self, ctx, *, question=None):
 		if(question!=None):
