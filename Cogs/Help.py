@@ -9,14 +9,13 @@ class Help(commands.Cog):
 		self.embed.add_field(name=".fighthelp", value="Help about player duels")
 		self.embed.add_field(name=".mischelp", value="Help about other commands")
 		self.embed.add_field(name=".about", value="Stuff about the creator and the bot")
-		self.embed.add_field(name=".credits", value="Credits to all the people who helped me with this bot")
 		self.embed.add_field(name=".invite", value="The bot\'s invite: https://tinyurl.com/poggers-bot")
 		self.embed.set_thumbnail(url="https://media.discordapp.net/attachments/739303210204004383/745318242284863608/250px-Pugilists_Protector.png")
 
 	@commands.command(help="Shows help menu")
 	async def help(self, ctx):
 		await log(ctx)
-		await ctx.send(self.embed)
+		await ctx.send(embed=self.embed)
 	
 	@commands.command(help="The invite")
 	async def invite(self, ctx):
@@ -27,11 +26,6 @@ class Help(commands.Cog):
 	async def about(self, ctx):
 		await log(ctx)
 		await ctx.send("This a player duel bot made by @retard#9070 using discord.py, you can download the source code here: https://github.com/Ya1Boi/poggersbot")
-
-	@commands.command(help="Shows credits")
-	async def credits(self, ctx):
-		await log(ctx)
-		await ctx.send("I would like to thank all the people that helped me: JezzaProto for organizing my bad code, weakpc ~~for being a pain in the ass~~ for motivating me to code, I also think that I haven\'t emphasized enough how @bonke#8942 helped by making a whole language for her, so (person who disabled their account) for ~~giving me free money~~ helping me through my tough times and all the people on my server that helped me")
 
 	@commands.command(help="misc help")
 	async def mischelp(self, ctx):
@@ -60,7 +54,7 @@ class Help(commands.Cog):
 		embed.add_field(name=".cock", value=":chicken:")
 		embed.add_field(name=".calc", value="Calculates whatever you say after the command (only certain characters are allowed)")
 		embed.add_field(name=".uwu", value="no lol")
-		await ctx.send(embed)
+		await ctx.send(embed=embed)
 
 def setup(bot):
 	bot.add_cog(Help(bot))
