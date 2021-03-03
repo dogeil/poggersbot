@@ -16,7 +16,6 @@ class Misc(commands.Cog):
 	@commands.command()
 	async def amongus(self, ctx):
 		await ctx.send("https://media.discordapp.net/attachments/741804760239308873/815920499070206042/among_us.png")
-	
 	@commands.command(help="Ask the 8ball a question", aliases=["8ball"])
 	async def ball(self, ctx, *, question=None):
 		print("a")
@@ -62,20 +61,27 @@ class Misc(commands.Cog):
 			await log(ctx, f"Calculation was succesful: {thebruh}={calc}")
 			await ctx.send(f"Original calculation: {thebruh} \n \nResult: {calc}")
 					
-	try:
-		@commands.command()	
-		async def sex(self, ctx, *, sexpeople : discord.Member):
-			RATE=random.randint(0,100)
-			sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexpeople.name}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
-			await ctx.send(embed=sexembed)
-			await log(ctx, f"User received: {str(sexpeople.id)}, Rate: {RATE}")
-	except:
-		@commands.command()	
-		async def sex(self, ctx, *, sexpeople : str):
-			RATE=random.randint(0,100)
-			sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexpeople}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
-			await ctx.send(embed=sexembed)
-			await log(ctx, f"Text received: {str(sexpeople)}, Rate: {RATE}")
+	@commands.command()	
+	async def sex(self, ctx, *, sexpeople = None):
+		if(sexpeople==None):
+			await log(ctx, "No user/text received")
+			await ctx.send("give me someone to sex")
+		else:
+			if(sexpeople.startswith("<@")):
+				sexpeople=sexpeople.replace("<@","")
+				sexpeople=sexpeople.replace("!","")
+				sexpeople=sexpeople.replace(">","")
+				sexid=int(sexpeople)
+				sexuser = self.bot.get_user(sexid)
+				RATE=random.randint(0,100)
+				sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexuser.name}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
+				await ctx.send(embed=sexembed)
+				await log(ctx, f"User received: {str(sexuser)}, Rate: {RATE}")
+			else:
+				RATE=random.randint(00,100)
+				sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexpeople}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
+				await log(ctx, f"Text received: {sexpeople}, Rate: {RATE}")
+				await ctx.send(embed=sexembed)
 
 	@commands.command(help="pp size epik")
 	async def pp(self, ctx):
