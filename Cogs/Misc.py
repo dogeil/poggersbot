@@ -16,8 +16,9 @@ class Misc(commands.Cog):
 	@commands.command()
 	async def amongus(self, ctx):
 		await ctx.send("https://media.discordapp.net/attachments/741804760239308873/815920499070206042/among_us.png")
-	@commands.command(help="Ask the 8ball a question", aliases=["8			ball"])
+	@commands.command(help="Ask the 8ball a question", aliases=["8ball"])
 	async def ball(self, ctx, *, question=None):
+		print("a")
 		if(question!=None):
 			responses = ["It is certain.","It is decidedly so.","Without a doubt.","Yes – definitely.","You may rely on it.","As I see it, yes.","Most likely.","Outlook good.","Yes.","Signs point to yes.","Reply hazy, try again.","Ask again later.","Better not tell you now.","Cannot predict now.","Concentrate and ask again.","Don't count on it.","My reply is no.","My sources say no.","Outlook not so good.","Very doubtful."]
 			bruh=ctx.guild.roles
@@ -161,7 +162,7 @@ class Misc(commands.Cog):
 	@commands.command(help="baka mitai")
 	async def bakamitai(self, ctx):
 		await log(ctx)
-		await ctx.send("baka mitai kodomo na no ne yume wo otte kizu tsuite uso ga heta na kuse ni waraenai egao miseta I LOVE YOU mo roku ni iwanai kuchibeta de honma ni bukiyou na no ni na no ni doushite sayonara wa ieta no dame da ne dame yo dame na no yo anta ga suki de suki sugite dore dake tsuyoi osake de mo yugamanai omoide ga baka mitai baka mitai hontou baka ne anta shinjiru bakari de tsuyoi onna no furi setsunasa no yokaze abiru hitori ni natte san-nen ga sugi machinami sae mo kawarimashita na no ni na no ni doushite miren dake okizari honma ni roku na otoko ya nai soroi no yubiwa hazushimasu zamaa miro seisei suru wa ii kagen mattete mo baka mitai dame da ne dame yo dame na no yo anta ga suki de suki sugite dore dake tsuyoi osake de mo yugamanai omoide ga baka mitai honma ni roku na otoko ya nai soroi no yubiwa hazushimasu zamaa miro seisei suru wa nan na no yo kono namida baka mitai")
+		await ctx.send("get trolled this is 24 hour cinderella now \nsunao ni I love you! todokeyou kitto you love me! tsutawaru sa kimi ni niau garasu no kutsu wo sagasou futari de step and go! itsu made mo shinya juuniji wo sugita tte bokura no rabu majikku wa toke wa shinai oide meshimase ohimesama doku no ringo wo tabete nemucchaisou na sunaosugiru kimi ga totemo itoshii atarimae, takara mono sa chikyuu wa mawari you wa nobori kimi wa hohoemusunao ni I love you! todokeyou kitto you love me! tsutawaru sa kimi ni niau garasu no kutsu wo sagasou futari de step and go! itsu made mo shinya juuniji wo sugita tte bokura no rabu majikku wa toke wa shinai iji no warui mamahaha ni mo kyuu na ame ni mo sabishii yoru ni mo hekotarenai kimi ga yahari itoshii tooku hanarete aenai hi wa hoshi ni negatte yume de aou ashita wa hareruyaisshou I love you! kawaranai sou sa you love me! eien sa kimi ni niau daiya no ringu watasou kore kara nansenkai tsumadzuite sara ni nanmankai koronde mo kimi no garasu kutsu wa nuge wa shinai atarimae, takara mono sa chikyuu wa mawari you wa nobori kimi wa hohoemu sunao ni I love you! todokeyou kitto you love me! tsutawaru sa kimi ni niau garasu no kutsu wo sagasou futari de step and go! itsu made mo shinya juuniji wo sugita tte kimi wa boku no itoshii nijuuyonjikan shinderera Hey! Hey! Hey!")
 
 	@commands.command()
 	async def monke(self, ctx):
