@@ -2,9 +2,7 @@ from keep_alive import keep_alive
 import discord, os, traceback, datetime
 from discord.ext import commands
 
-banlist=[778722406344556554]
-
-fightlist=[]
+fightdict={}
 
 async def log(ctx, extra="None"):
 	cmdtime=str(datetime.datetime.today()).replace("-", "/").split(".")[0]+" (UTC)"
@@ -22,27 +20,12 @@ async def log(ctx, extra="None"):
 	cmdchannel=ctx.channel.name
 	cmdserver=ctx.guild.name
 	
-	if(ctx.channel.id in banlist):
-		return
-	else:
-		extra = extra.replace("`", "")
-		logchannel=bot.get_channel(781124111216017458)
-		otherlogchannel=bot.get_channel(763769618036031488)
-		await logchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
-		await otherlogchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
-
-async def sendm(banlist, ctx, text=""):
-	if(ctx.channel.id in banlist):
-		return
-	else:
-		await ctx.send(text)
-
-async def sendem(banlist, ctx, embed):
-	if(ctx.channel.id in banlist):
-		return
-	else:
-		await ctx.send(embed=embed)
-		
+	extra = extra.replace("`", "")
+	logchannel=bot.get_channel(781124111216017458)
+	otherlogchannel=bot.get_channel(763769618036031488)
+	await logchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
+	await otherlogchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
+	
 
 #methe
 #test banana
@@ -64,44 +47,54 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 
 @bot.event
 async def on_message(msg):
-	listofwords=["im", "Im", "iM", "IM", "i'm", "I'm", "I'M", "i'M"]
-	for i in listofwords:
-		if (msg.content.startswith(i+" ") and not msg.channel.id in banlist and not msg.author.id==741811813615927307):
-			txt="Hi, "+msg.content.replace(i+" ","",1)+", I'm dad!"
-			bruh=msg.guild.roles
-			bruh2=[]
-			bruh3=[]
-			for i in bruh:
-				a=i.name
-				b=i.id
-				bruh2.append(a)
-				bruh3.append(b)
-			for idx, i in enumerate(bruh3):
-				txt=txt.replace(f"<@&{str(i)}>", bruh2[idx])
-				txt=txt.replace("@everyone", "everyone")
-				txt=txt.replace("@here", "here")
-			if("gay" in txt.lower() or "homosexual" in txt.lower()):
-				txt="I know"
-			await msg.channel.send(txt)
-			await log(await bot.get_context(msg), msg.content)
-			
-		
-			
 	await bot.process_commands(msg)
+
+@bot.command()
+async def fight(ctx, obama : discord.Member):
+	a1=0
+	a2=0
+	for fn in fightdict:
+		if(str(ctx.author.id) in fn and str(obama.id) in fn):
+			a1+=1
+			a2+=1
+		if(str(ctx.author.id) in fn):
+			a1+=1
+		if(str(obama.id) in fn):
+			a2+=1
+	if(obama.id==741811813615927307):
+		#funny scenario trying to fight the bot
+		await ctx.send("ok i win you lose")
+	elif(obama.bot):
+		#trying to fight a bot
+		await ctx.send(f"{obama.mention} is a bot and im pretty sure you cant fight robots they would instantly win")
+	elif(obama.id==ctx.author.id):
+		#trying to fight self
+		await ctx.send(f"{obama.mention} what you cant fight yourself dumb")
+	elif(a1>=1 and a2>=1):
+		#the command user and the other person are already fighting
+		await ctx.send(f"{ctx.author.mention} youre already fighting that person")
+	elif(a1>=1):
+		#the command user is already fighting
+		await ctx.send(f"{ctx.author.mention} stop thinking youre so good you cant fight two people at once")
+	elif(a2>=1):
+		#the other person is already fighting
+		await ctx.send(f"{ctx.author.mention} why are you trying to fight {obama.mention} theyre already doing it with someone else")
+	else:
+		#actual fight
+		add = {
+		"p1hp": 100,
+		"p2hp": 100
+		}
+		fightdict[f"{str(ctx.author.id)}/{str(obama.id)}"]=add
+
+@bot.command()
+async def printfd(ctx):
+	await ctx.send(str(fightdict))
 
 @bot.event
 async def on_ready():
 	print('my body is ready \n')
-	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
-
-@bot.command()
-async def fight(ctx, player2 : discord.Member):
-	
-	await log(ctx)
-	
-	fightlist.append(f"{ctx.author.id}(100,{player2.id}(100-{ctx.channel.id}")
-	
-	await sendm(banlist, ctx, f"{ctx.author.mention} starts, the only thing working is punch for testing")
+	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you're mom"))
 	
 keep_alive()
 token = os.environ.get("TOKEN")
