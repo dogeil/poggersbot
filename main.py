@@ -1,8 +1,17 @@
 from keep_alive import keep_alive
-import discord, os, traceback, datetime
+import discord, os, traceback, datetime, random
 from discord.ext import commands
 
 fightdict={}
+
+def getfight(id, dicte):
+	variables=None
+	ids=None
+	for a, b in dicte.items():
+		if str(id) in a:
+			ids=a
+			variables=b
+	return ids+str(variables)
 
 async def log(ctx, extra="None"):
 	cmdtime=str(datetime.datetime.today()).replace("-", "/").split(".")[0]+" (UTC)"
@@ -47,6 +56,15 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 
 @bot.event
 async def on_message(msg):
+	if str(msg.author.id) in str(fightdict):
+		fight=getfight(msg.author.id, fightdict).split("/")
+		p1=None
+		if msg.author.id == fight[1]:
+			p1=True
+		else:
+			p1=False
+		if(msg.content.lower()=="punch"):
+			await msg.channel.send(f"yes p1={p1}")
 	await bot.process_commands(msg)
 
 @bot.command()
@@ -81,15 +99,30 @@ async def fight(ctx, obama : discord.Member):
 		await ctx.send(f"{ctx.author.mention} why are you trying to fight {obama.mention} theyre already doing it with someone else")
 	else:
 		#actual fight
+		turn=None
+
+		a=random.randint(0, 100)
+		if(a>=50):
+			turn=True
+		else:
+			turn=False
+		
 		add = {
 		"p1hp": 100,
-		"p2hp": 100
+		"p2hp": 100,
+		"turn": turn
 		}
-		fightdict[f"{str(ctx.author.id)}/{str(obama.id)}"]=add
+		fightdict[f"/{str(ctx.author.id)}/{str(obama.id)}/"]=add
+		await ctx.send("yes")
 
 @bot.command()
 async def printfd(ctx):
 	await ctx.send(str(fightdict))
+@bot.command()
+async def clearfd(ctx):
+	for key in fightdict.keys():
+  	  del fightdict[key]
+	await ctx.send("ok")
 
 @bot.event
 async def on_ready():
@@ -103,6 +136,6 @@ bot.run(token)
 """
 dumb bot made by @retard#9070, to run it yourself, check the README
 
-GITHUB: https://github.com/Ya1Boi/poggersbot
+GITHUB: https://github.com/Ya1Boi/poggersbot (i just realized this is kind of useless because if youre seeing this youre probably already on the github)
 """
 
