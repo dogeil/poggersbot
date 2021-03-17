@@ -61,20 +61,18 @@ class Misc(commands.Cog):
 			await log(ctx, f"Calculation was succesful: {thebruh}={calc}")
 			await ctx.send(f"Original calculation: {thebruh} \n \nResult: {calc}")
 					
-	try:
-		@commands.command()	
-		async def sex(self, ctx, *, sexuser : discord.Member):
-			RATE=random.randint(0,100)
-			sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexuser.name}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
+	@commands.command()	
+	async def sexuser(self, ctx, *, sexuser : discord.Member):
+		RATE=random.randint(0,100)
+		sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexuser.name}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
+		await ctx.send(embed=sexembed)
+		await log(ctx, f"User received: {str(sexuser)}, Rate: {RATE}")
+	@commands.command()	
+	async def sex(self, ctx, *, sexpeople):
+			RATE=random.randint(00,100)
+			sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexpeople}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
+			await log(ctx, f"Text received: {sexpeople}, Rate: {RATE}")
 			await ctx.send(embed=sexembed)
-			await log(ctx, f"User received: {str(sexuser)}, Rate: {RATE}")
-	except:
-		@commands.command()	
-		async def sex(self, ctx, *, sexpeople):
-				RATE=random.randint(00,100)
-				sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexpeople}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
-				await log(ctx, f"Text received: {sexpeople}, Rate: {RATE}")
-				await ctx.send(embed=sexembed)
 
 	@commands.command(help="pp size epik")
 	async def pp(self, ctx):

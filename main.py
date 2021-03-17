@@ -11,7 +11,8 @@ def getfight(id, dicte):
 		if str(id) in a:
 			ids=a
 			variables=b
-	return ids+str(variables)
+	stuff=[ids, variables]
+	return stuff
 
 async def log(ctx, extra="None"):
 	cmdtime=str(datetime.datetime.today()).replace("-", "/").split(".")[0]+" (UTC)"
@@ -34,7 +35,6 @@ async def log(ctx, extra="None"):
 	otherlogchannel=bot.get_channel(763769618036031488)
 	await logchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
 	await otherlogchannel.send(f"Command .{cmdname} used by `{cmduser}` at {cmdtime} in {cmdchannel} ({cmdserver}), Extra Information: `{extra}`\n")
-	
 
 #methe
 #test banana
@@ -57,14 +57,47 @@ for Extension in [f.replace('.py', '') for f in os.listdir("Cogs") if os.path.is
 @bot.event
 async def on_message(msg):
 	if str(msg.author.id) in str(fightdict):
-		fight=getfight(msg.author.id, fightdict).split("/")
+		fight=getfight(msg.author.id, fightdict)
+		p1id=int(fight[0].split("/")[1])
+		p2id=int(fight[0].split("/")[2])
 		p1=None
-		if msg.author.id == fight[1]:
+		if str(msg.author.id) == fight[0].split("/")[1]:
 			p1=True
 		else:
 			p1=False
 		if(msg.content.lower()=="punch"):
-			await msg.channel.send(f"yes p1={p1}")
+			if(p1==True and fight[1]["turn"]==True):
+				randomdmg=random.randint(0, 100)
+				new = {
+					"p1hp" : fight[1]["p1hp"],
+					"p2hp" : fight[1]["p2hp"]-randomdmg,
+					"turn" : False
+				}
+				fightdict[fight[0]]=new
+				newhp=str(new["p2hp"])
+				await msg.channel.send(f"you dealt {randomdmg} damage")	
+				if 0>=new["p2hp"]:
+					await msg.channel.send(f"{msg.author.mention} you win!!! \ncongratulations you get nothing")
+					del fightdict[fight[0]]
+				else:
+					await msg.channel.send(f"theyre now at {newhp} hp")
+					await msg.channel.send(f"<@{str(p2id)}> youre next")
+			elif(p1==False and fight[1]["turn"]==False):
+				randomdmg=random.randint(0, 100)
+				new = {
+					"p1hp" : fight[1]["p1hp"]-randomdmg,
+					"p2hp" : fight[1]["p2hp"],
+					"turn" : True
+				}
+				fightdict[fight[0]]=new
+				newhp=str(new["p1hp"])
+				await msg.channel.send(f"you dealt {randomdmg} damage")	
+				if 0>=new["p1hp"]:
+					await msg.channel.send(f"{msg.author.mention} you win!!! \ncongratulations you get nothing")
+					del fightdict[fight[0]]
+				else:
+					await msg.channel.send(f"theyre now at {newhp} hp")
+					await msg.channel.send(f"<@{str(p1id)}> youre next")
 	await bot.process_commands(msg)
 
 @bot.command()
@@ -113,7 +146,10 @@ async def fight(ctx, obama : discord.Member):
 		"turn": turn
 		}
 		fightdict[f"/{str(ctx.author.id)}/{str(obama.id)}/"]=add
-		await ctx.send("yes")
+		if turn==True:
+			await ctx.send(f"welcome to fight command scuffed edition!!!\n{ctx.author.mention} you start\n type \"punch\" because thats the only option")
+		else:
+			await ctx.send(f"welcome to fight command scuffed edition!!!\n{obama.mention} you start\n type \"punch\" because thats the only option")
 
 @bot.command()
 async def printfd(ctx):
