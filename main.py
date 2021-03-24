@@ -142,11 +142,23 @@ async def on_message(msg):
 						await msg.channel.send(f"<@{str(p1id)}> youre next")
 			else:
 				if(p1==True and fight[1]["turn"]==True):
+					new = {
+						"p1hp" : fight[1]["p1hp"],
+						"p2hp" : fight[1]["p2hp"],
+						"turn" : False
+					}
+					fightdict[fight[0]]=new
 					b=str(fight[1]["p2hp"])
 					await msg.channel.send("you missed the move!")	
 					await msg.channel.send(f"theyre now at {b} hp")
 					await msg.channel.send(f"<@{str(p2id)}> youre next")
 				elif(p1==False and fight[1]["turn"]==False):
+					new = {
+						"p1hp" : fight[1]["p1hp"],
+						"p2hp" : fight[1]["p2hp"],
+						"turn" : True
+					}
+					fightdict[fight[0]]=new
 					b=str(fight[1]["p1hp"])
 					await msg.channel.send("you missed the move!")	
 					await msg.channel.send(f"theyre now at {b} hp")
