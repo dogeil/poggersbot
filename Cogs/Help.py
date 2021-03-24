@@ -59,7 +59,7 @@ class Help(commands.Cog):
 
 	@commands.command(help="the")
 	async def fighthelp(self, ctx):
-		attnames=["attack","att","a","attack1","att1","a1"]
+		attnames=["attack","att","a","attack1","att1","a1","1"]
 		att2names=["secondary attack","secondary att","secondary a","sec attack","sec att","sec a","s attack","s att","s a","attack2","att2","a2","2"]
 		await log(ctx)
 		embed = discord.Embed(title="Engineer\'s Fighting Club", description="These are the basic fighting commands that can be used by every class", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())

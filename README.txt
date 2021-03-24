@@ -1,1 +1,1 @@
-if you want to run this code on your own bot you have to run it on https://repl.it i recommend following this tutorial: https://youtu.be/g7n4OMy5tIY
+if you want to run this code on your own bot you have to run it on https://replit.com i recommend following this tutorial: https://youtu.be/g7n4OMy5tIY

@@ -65,7 +65,7 @@ async def on_message(msg):
 			p1=True
 		elif msg.author.id ==p2id:
 			p1=False
-		attnames=["attack","att","a","attack1","att1","a1"]
+		attnames=["attack","att","a","attack1","att1","a1","1"]
 		att2names=["secondary attack","secondary att","secondary a","sec attack","sec att","sec a","s attack","s att","s a","attack2","att2","a2","2"]
 		if(msg.content.lower() in attnames):
 			if(p1==True and fight[1]["turn"]==True):
