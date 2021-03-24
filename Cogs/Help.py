@@ -57,5 +57,15 @@ class Help(commands.Cog):
 		embed.add_field(name=".uwu", value="no lol")
 		await ctx.send(embed=embed)
 
+	@commands.command(help="the")
+	async def fighthelp(self, ctx):
+		attnames=["attack","att","a","attack1","att1","a1"]
+		att2names=["secondary attack","secondary att","secondary a","sec attack","sec att","sec a","s attack","s att","s a","attack2","att2","a2","2"]
+		await log(ctx)
+		embed = discord.Embed(title="Engineer\'s Fighting Club", description="These are the basic fighting commands that can be used by every class", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
+		embed.add_field(name="attack", value=f"normal attack that has average damage and always hits (damage=15-20, aliases={str(attnames)})")
+		embed.add_field(name="secondary attack", value=f"slightly different attack that deals higher damage but only has a 50% chance to hit (damage=35-40, aliases={str(att2names)})")
+		await ctx.send(embed=embed)
+
 def setup(bot):
 	bot.add_cog(Help(bot))

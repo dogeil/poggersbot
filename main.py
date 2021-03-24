@@ -65,9 +65,11 @@ async def on_message(msg):
 			p1=True
 		else:
 			p1=False
-		if(msg.content.lower()=="punch"):
+		attnames=["attack","att","a","attack1","att1","a1"]
+		att2names=["secondary attack","secondary att","secondary a","sec attack","sec att","sec a","s attack","s att","s a","attack2","att2","a2","2"]
+		if(msg.content.lower() in attnames):
 			if(p1==True and fight[1]["turn"]==True):
-				randomdmg=random.randint(0, 100)
+				randomdmg=random.randint(15, 20)
 				new = {
 					"p1hp" : fight[1]["p1hp"],
 					"p2hp" : fight[1]["p2hp"]-randomdmg,
@@ -83,7 +85,7 @@ async def on_message(msg):
 					await msg.channel.send(f"theyre now at {newhp} hp")
 					await msg.channel.send(f"<@{str(p2id)}> youre next")
 			elif(p1==False and fight[1]["turn"]==False):
-				randomdmg=random.randint(0, 100)
+				randomdmg=random.randint(15, 20)
 				new = {
 					"p1hp" : fight[1]["p1hp"]-randomdmg,
 					"p2hp" : fight[1]["p2hp"],
@@ -97,6 +99,57 @@ async def on_message(msg):
 					del fightdict[fight[0]]
 				else:
 					await msg.channel.send(f"theyre now at {newhp} hp")
+					await msg.channel.send(f"<@{str(p1id)}> youre next")
+		elif(msg.content.lower() in att2names):
+			hitchance=random.randint(0,100)
+			hit=None
+			if hitchance>50:
+				hit=True
+			else:
+				hit=False
+			if hit:
+				if(p1==True and fight[1]["turn"]==True):
+					randomdmg=random.randint(35, 40)
+					new = {
+						"p1hp" : fight[1]["p1hp"],
+						"p2hp" : fight[1]["p2hp"]-randomdmg,
+						"turn" : False
+					}
+					fightdict[fight[0]]=new
+					newhp=str(new["p2hp"])
+					await msg.channel.send(f"you dealt {randomdmg} damage")	
+					if 0>=new["p2hp"]:
+						await msg.channel.send(f"{msg.author.mention} you win!!! \ncongratulations you get nothing")
+						del fightdict[fight[0]]
+					else:
+						await msg.channel.send(f"theyre now at {newhp} hp")
+						await msg.channel.send(f"<@{str(p2id)}> youre next")
+				elif(p1==False and fight[1]["turn"]==False):
+					randomdmg=random.randint(35, 40)
+					new = {
+						"p1hp" : fight[1]["p1hp"]-randomdmg,
+						"p2hp" : fight[1]["p2hp"],
+						"turn" : True
+					}
+					fightdict[fight[0]]=new
+					newhp=str(new["p1hp"])
+					await msg.channel.send(f"you dealt {randomdmg} damage")	
+					if 0>=new["p1hp"]:
+						await msg.channel.send(f"{msg.author.mention} you win!!! \ncongratulations you get nothing")
+						del fightdict[fight[0]]
+					else:
+						await msg.channel.send(f"theyre now at {newhp} hp")
+						await msg.channel.send(f"<@{str(p1id)}> youre next")
+			else:
+				if(p1==True and fight[1]["turn"]==True):
+					b=str(fight[1]["p2hp"])
+					await msg.channel.send("you missed the move!")	
+					await msg.channel.send(f"theyre now at {b} hp")
+					await msg.channel.send(f"<@{str(p2id)}> youre next")
+				elif(p1==False and fight[1]["turn"]==False):
+					b=str(fight[1]["p1hp"])
+					await msg.channel.send("you missed the move!")	
+					await msg.channel.send(f"theyre now at {b} hp")
 					await msg.channel.send(f"<@{str(p1id)}> youre next")
 	await bot.process_commands(msg)
 
@@ -134,7 +187,7 @@ async def fight(ctx, obama : discord.Member):
 		#actual fight
 		turn=None
 
-		a=random.randint(0, 100)
+		a=random.randint(15, 20)
 		if(a>=50):
 			turn=True
 		else:
@@ -147,9 +200,9 @@ async def fight(ctx, obama : discord.Member):
 		}
 		fightdict[f"/{str(ctx.author.id)}/{str(obama.id)}/"]=add
 		if turn==True:
-			await ctx.send(f"welcome to fight command scuffed edition!!!\n{ctx.author.mention} you start\n type \"punch\" because thats the only option")
+			await ctx.send(f"welcome to fight command scuffed edition!!!\n{ctx.author.mention} you are the starter\n use the .fighthelp command in case you dont know what to do")
 		else:
-			await ctx.send(f"welcome to fight command scuffed edition!!!\n{obama.mention} you start\n type \"punch\" because thats the only option")
+			await ctx.send(f"welcome to fight command scuffed edition!!!\n{obama.mention} you are the starter\n use the .fighthelp command in case you dont know what to do")
 
 @bot.command()
 async def printfd(ctx):
