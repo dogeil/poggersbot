@@ -61,9 +61,9 @@ async def on_message(msg):
 		p1id=int(fight[0].split("/")[1])
 		p2id=int(fight[0].split("/")[2])
 		p1=None
-		if str(msg.author.id) == fight[0].split("/")[1]:
+		if msg.author.id == p1id:
 			p1=True
-		else:
+		elif msg.author.id ==p2id:
 			p1=False
 		attnames=["attack","att","a","attack1","att1","a1"]
 		att2names=["secondary attack","secondary att","secondary a","sec attack","sec att","sec a","s attack","s att","s a","attack2","att2","a2","2"]
@@ -163,6 +163,10 @@ async def on_message(msg):
 					await msg.channel.send("you missed the move!")	
 					await msg.channel.send(f"theyre now at {b} hp")
 					await msg.channel.send(f"<@{str(p1id)}> youre next")
+		elif(msg.content.lower() == "end"):
+			if(not p1 == None):
+				await msg.channel.send(f"{msg.author.mention} gave up due to the extreme swag of their opponent")
+				del fightdict[fight[0]]
 	await bot.process_commands(msg)
 
 @bot.command()

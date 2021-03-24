@@ -65,6 +65,7 @@ class Help(commands.Cog):
 		embed = discord.Embed(title="Engineer\'s Fighting Club", description="These are the basic fighting commands that can be used by every class", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
 		embed.add_field(name="attack", value=f"**normal attack that has average damage and always hits** (damage=15-20, aliases={str(attnames)})")
 		embed.add_field(name="secondary attack", value=f"**slightly different attack that deals higher damage but only has a 50% chance to hit** (damage=35-40, aliases={str(att2names)})")
+		embed.add_field(name="end", value="**ends the fight**")
 		await ctx.send(embed=embed)
 
 def setup(bot):
