@@ -73,7 +73,8 @@ async def on_message(msg):
 				new = {
 					"p1hp" : fight[1]["p1hp"],
 					"p2hp" : fight[1]["p2hp"]-randomdmg,
-					"turn" : False
+					"turn" : False,
+					"turncounter": fight[1]["turncounter"]+1
 				}
 				fightdict[fight[0]]=new
 				newhp=str(new["p2hp"])
@@ -89,7 +90,8 @@ async def on_message(msg):
 				new = {
 					"p1hp" : fight[1]["p1hp"]-randomdmg,
 					"p2hp" : fight[1]["p2hp"],
-					"turn" : True
+					"turn" : True,
+					"turncounter": fight[1]["turncounter"]+1
 				}
 				fightdict[fight[0]]=new
 				newhp=str(new["p1hp"])
@@ -113,7 +115,8 @@ async def on_message(msg):
 					new = {
 						"p1hp" : fight[1]["p1hp"],
 						"p2hp" : fight[1]["p2hp"]-randomdmg,
-						"turn" : False
+						"turn" : False,
+						"turncounter": fight[1]["turncounter"]+1
 					}
 					fightdict[fight[0]]=new
 					newhp=str(new["p2hp"])
@@ -129,7 +132,8 @@ async def on_message(msg):
 					new = {
 						"p1hp" : fight[1]["p1hp"]-randomdmg,
 						"p2hp" : fight[1]["p2hp"],
-						"turn" : True
+						"turn" : True,
+						"turncounter": fight[1]["turncounter"]+1
 					}
 					fightdict[fight[0]]=new
 					newhp=str(new["p1hp"])
@@ -145,7 +149,8 @@ async def on_message(msg):
 					new = {
 						"p1hp" : fight[1]["p1hp"],
 						"p2hp" : fight[1]["p2hp"],
-						"turn" : False
+						"turn" : False,
+						"turncounter": fight[1]["turncounter"]+1
 					}
 					fightdict[fight[0]]=new
 					b=str(fight[1]["p2hp"])
@@ -156,7 +161,8 @@ async def on_message(msg):
 					new = {
 						"p1hp" : fight[1]["p1hp"],
 						"p2hp" : fight[1]["p2hp"],
-						"turn" : True
+						"turn" : True,
+						"turncounter": fight[1]["turncounter"]+1
 					}
 					fightdict[fight[0]]=new
 					b=str(fight[1]["p1hp"])
@@ -212,7 +218,8 @@ async def fight(ctx, obama : discord.Member):
 		add = {
 		"p1hp": 100,
 		"p2hp": 100,
-		"turn": turn
+		"turn": turn,
+		"turncounter": 0
 		}
 		fightdict[f"/{str(ctx.author.id)}/{str(obama.id)}/"]=add
 		if turn==True:
