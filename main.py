@@ -70,11 +70,15 @@ async def on_message(msg):
 		if(msg.content.lower() in attnames):
 			if(p1==True and fight[1]["turn"]==True):
 				randomdmg=random.randint(15, 20)
+				if fight[1]["focusturnp1"]==fight[1]["turncounter"]:
+					randomdmg=randomdmg*1.8
 				new = {
 					"p1hp" : fight[1]["p1hp"],
 					"p2hp" : fight[1]["p2hp"]-randomdmg,
 					"turn" : False,
-					"turncounter": fight[1]["turncounter"]+1
+					"turncounter": fight[1]["turncounter"]+1,
+					"focusturnp1": fight[1]["focusturnp1"],
+					"focusturnp2": fight[1]["focusturnp2"]
 				}
 				fightdict[fight[0]]=new
 				newhp=str(new["p2hp"])
@@ -87,11 +91,15 @@ async def on_message(msg):
 					await msg.channel.send(f"<@{str(p2id)}> youre next")
 			elif(p1==False and fight[1]["turn"]==False):
 				randomdmg=random.randint(15, 20)
+				if fight[1]["focusturnp2"]==fight[1]["turncounter"]:
+					randomdmg=randomdmg*1.8
 				new = {
 					"p1hp" : fight[1]["p1hp"]-randomdmg,
 					"p2hp" : fight[1]["p2hp"],
 					"turn" : True,
-					"turncounter": fight[1]["turncounter"]+1
+					"turncounter": fight[1]["turncounter"]+1,
+					"focusturnp1": fight[1]["focusturnp1"],
+					"focusturnp2": fight[1]["focusturnp2"]
 				}
 				fightdict[fight[0]]=new
 				newhp=str(new["p1hp"])
@@ -104,6 +112,10 @@ async def on_message(msg):
 					await msg.channel.send(f"<@{str(p1id)}> youre next")
 		elif(msg.content.lower() in att2names):
 			hitchance=random.randint(0,100)
+			if fight[1]["focusturnp1"]==fight[1]["turncounter"] and p1 == True:
+				hitchance=random.randint(0,75)
+			elif fight[1]["focusturnp2"]==fight[1]["turncounter"] and p1 == False:
+				hitchance=random.randint(0,75)
 			hit=None
 			if hitchance>50:
 				hit=True
@@ -116,7 +128,9 @@ async def on_message(msg):
 						"p1hp" : fight[1]["p1hp"],
 						"p2hp" : fight[1]["p2hp"]-randomdmg,
 						"turn" : False,
-						"turncounter": fight[1]["turncounter"]+1
+						"turncounter": fight[1]["turncounter"]+1,
+						"focusturnp1": fight[1]["focusturnp1"],
+						"focusturnp2": fight[1]["focusturnp2"]
 					}
 					fightdict[fight[0]]=new
 					newhp=str(new["p2hp"])
@@ -133,7 +147,9 @@ async def on_message(msg):
 						"p1hp" : fight[1]["p1hp"]-randomdmg,
 						"p2hp" : fight[1]["p2hp"],
 						"turn" : True,
-						"turncounter": fight[1]["turncounter"]+1
+						"turncounter": fight[1]["turncounter"]+1,
+						"focusturnp1": fight[1]["focusturnp1"],
+						"focusturnp2": fight[1]["focusturnp2"]
 					}
 					fightdict[fight[0]]=new
 					newhp=str(new["p1hp"])
@@ -150,7 +166,9 @@ async def on_message(msg):
 						"p1hp" : fight[1]["p1hp"],
 						"p2hp" : fight[1]["p2hp"],
 						"turn" : False,
-						"turncounter": fight[1]["turncounter"]+1
+						"turncounter": fight[1]["turncounter"]+1,
+						"focusturnp1": fight[1]["focusturnp1"],
+						"focusturnp2": fight[1]["focusturnp2"]
 					}
 					fightdict[fight[0]]=new
 					b=str(fight[1]["p2hp"])
@@ -162,13 +180,35 @@ async def on_message(msg):
 						"p1hp" : fight[1]["p1hp"],
 						"p2hp" : fight[1]["p2hp"],
 						"turn" : True,
-						"turncounter": fight[1]["turncounter"]+1
+						"turncounter": fight[1]["turncounter"]+1,
+						"focusturnp1": fight[1]["focusturnp1"],
+						"focusturnp2": fight[1]["focusturnp2"]
 					}
 					fightdict[fight[0]]=new
 					b=str(fight[1]["p1hp"])
 					await msg.channel.send("you missed the move!")	
 					await msg.channel.send(f"theyre now at {b} hp")
 					await msg.channel.send(f"<@{str(p1id)}> youre next")
+		elif(msg.content.lower() == "focus"):
+			if(p1):
+				new = {
+					"p1hp" : fight[1]["p1hp"],
+					"p2hp" : fight[1]["p2hp"],
+					"turn" : False,
+					"turncounter": fight[1]["turncounter"]+1,
+					"focusturnp1": fight[1]["turncounter"]+2,
+					"focusturnp2": fight[1]["focusturnp2"]
+				}
+			else:
+				new = {
+					"p1hp" : fight[1]["p1hp"],
+					"p2hp" : fight[1]["p2hp"],
+					"turn" : True,
+					"turncounter": fight[1]["turncounter"]+1,
+					"focusturnp1": fight[1]["focusturnp1"],
+					"focusturnp2": fight[1]["turncounter"]+2
+				}
+
 		elif(msg.content.lower() == "end"):
 			if(not p1 == None):
 				await msg.channel.send(f"{msg.author.mention} gave up due to the extreme swag of their opponent")
@@ -219,7 +259,9 @@ async def fight(ctx, obama : discord.Member):
 		"p1hp": 100,
 		"p2hp": 100,
 		"turn": turn,
-		"turncounter": 0
+		"turncounter": 0,
+		"focusturnp1": 0,
+		"focusturnp2": 0
 		}
 		fightdict[f"/{str(ctx.author.id)}/{str(obama.id)}/"]=add
 		if turn==True:
