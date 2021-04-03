@@ -173,7 +173,7 @@ async def on_message(msg):
 					fightdict[fight[0]]=new
 					b=str(fight[1]["p2hp"])
 					await msg.channel.send("you missed the move!")	
-					await msg.channel.send(f"theyre now at {b} hp")
+					await msg.channel.send(f"theyre still at {b} hp")
 					await msg.channel.send(f"<@{str(p2id)}> youre next")
 				elif(p1==False and fight[1]["turn"]==False):
 					new = {
@@ -187,27 +187,35 @@ async def on_message(msg):
 					fightdict[fight[0]]=new
 					b=str(fight[1]["p1hp"])
 					await msg.channel.send("you missed the move!")	
-					await msg.channel.send(f"theyre now at {b} hp")
+					await msg.channel.send(f"theyre still at {b} hp")
 					await msg.channel.send(f"<@{str(p1id)}> youre next")
 		elif(msg.content.lower() == "focus"):
 			if(p1):
 				new = {
-					"p1hp" : fight[1]["p1hp"],
-					"p2hp" : fight[1]["p2hp"],
-					"turn" : False,
-					"turncounter": fight[1]["turncounter"]+1,
-					"focusturnp1": fight[1]["turncounter"]+2,
-					"focusturnp2": fight[1]["focusturnp2"]
+				"p1hp" : fight[1]["p1hp"],
+				"p2hp" : fight[1]["p2hp"],
+				"turn" : False,
+				"turncounter": fight[1]["turncounter"]+1,
+				"focusturnp1": fight[1]["turncounter"]+2,
+				"focusturnp2": fight[1]["focusturnp2"]
 				}
+				fightdict[fight[0]]=new
+				await msg.channel.send("you have activated focus")	
+				await msg.channel.send(f"theyre still at {b} hp")
+				await msg.channel.send(f"<@{str(p2id)}> youre next")
 			else:
 				new = {
-					"p1hp" : fight[1]["p1hp"],
-					"p2hp" : fight[1]["p2hp"],
-					"turn" : True,
-					"turncounter": fight[1]["turncounter"]+1,
-					"focusturnp1": fight[1]["focusturnp1"],
-					"focusturnp2": fight[1]["turncounter"]+2
+				"p1hp" : fight[1]["p1hp"],
+				"p2hp" : fight[1]["p2hp"],
+				"turn" : True,
+				"turncounter": fight[1]["turncounter"]+1,
+				"focusturnp1": fight[1]["focusturnp1"],
+				"focusturnp2": fight[1]["turncounter"]+2
 				}
+				fightdict[fight[0]]=new
+				await msg.channel.send("you have activated focus")	
+				await msg.channel.send(f"theyre still at {b} hp")
+				await msg.channel.send(f"<@{str(p1id)}> youre next")
 
 		elif(msg.content.lower() == "end"):
 			if(not p1 == None):
