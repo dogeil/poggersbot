@@ -71,7 +71,7 @@ async def on_message(msg):
 			if(p1==True and fight[1]["turn"]==True):
 				randomdmg=random.randint(15, 20)
 				if fight[1]["focusturnp1"]==fight[1]["turncounter"]:
-					randomdmg=randomdmg*1.8
+					randomdmg=round(randomdmg*1.8)
 				new = {
 					"p1hp" : fight[1]["p1hp"],
 					"p2hp" : fight[1]["p2hp"]-randomdmg,
@@ -92,7 +92,7 @@ async def on_message(msg):
 			elif(p1==False and fight[1]["turn"]==False):
 				randomdmg=random.randint(15, 20)
 				if fight[1]["focusturnp2"]==fight[1]["turncounter"]:
-					randomdmg=randomdmg*1.8
+					randomdmg=round(randomdmg*1.8)
 				new = {
 					"p1hp" : fight[1]["p1hp"]-randomdmg,
 					"p2hp" : fight[1]["p2hp"],
@@ -200,6 +200,7 @@ async def on_message(msg):
 				"focusturnp2": fight[1]["focusturnp2"]
 				}
 				fightdict[fight[0]]=new
+				b=str(fight[1]["p1hp"])
 				await msg.channel.send("you have activated focus")	
 				await msg.channel.send(f"theyre still at {b} hp")
 				await msg.channel.send(f"<@{str(p2id)}> youre next")
@@ -213,6 +214,7 @@ async def on_message(msg):
 				"focusturnp2": fight[1]["turncounter"]+2
 				}
 				fightdict[fight[0]]=new
+				b=str(fight[1]["p1hp"])
 				await msg.channel.send("you have activated focus")	
 				await msg.channel.send(f"theyre still at {b} hp")
 				await msg.channel.send(f"<@{str(p1id)}> youre next")
@@ -257,7 +259,7 @@ async def fight(ctx, obama : discord.Member):
 		#actual fight
 		turn=None
 
-		a=random.randint(15, 20)
+		a=random.randint(1, 100)
 		if(a>=50):
 			turn=True
 		else:
