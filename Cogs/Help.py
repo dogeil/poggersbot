@@ -66,7 +66,7 @@ class Help(commands.Cog):
 		embed.add_field(name="attack", value=f"**normal attack that has average damage and always hits** (damage=15-20, aliases={str(attnames)})")
 		embed.add_field(name="secondary attack", value=f"**slightly different attack that deals higher damage but only has a 50% chance to hit** (damage=35-40, aliases={str(att2names)})")
 		embed.add_field(name="end", value="**ends the fight**")
-		embed.add_field(name="focus", value="**makes the basic attack do 180% more damage and the secondary attack have a 25% higher chance to hit and only lasts for the next turn**")
+		embed.add_field(name="focus", value="**makes the basic attack do 180% more damage and the secondary attack have a 25% higher chance to hit and deal 150% more damage and only lasts for the next turn**")
 		embed.add_field(name="end", value="**ends the fight**")
 		await ctx.send(embed=embed)
 

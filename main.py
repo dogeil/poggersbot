@@ -124,6 +124,8 @@ async def on_message(msg):
 			if hit:
 				if(p1==True and fight[1]["turn"]==True):
 					randomdmg=random.randint(35, 40)
+					if fight[1]["focusturnp1"]==fight[1]["turncounter"]:
+						randomdmg=round(randomdmg*1.5)
 					new = {
 						"p1hp" : fight[1]["p1hp"],
 						"p2hp" : fight[1]["p2hp"]-randomdmg,
