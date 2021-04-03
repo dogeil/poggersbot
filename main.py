@@ -71,7 +71,7 @@ async def on_message(msg):
 			if(p1==True and fight[1]["turn"]==True):
 				randomdmg=random.randint(15, 20)
 				if fight[1]["focusturnp1"]==fight[1]["turncounter"]:
-					randomdmg=round(randomdmg*1.8)
+					randomdmg=round(randomdmg*2)
 				new = {
 					"p1hp" : fight[1]["p1hp"],
 					"p2hp" : fight[1]["p2hp"]-randomdmg,
@@ -92,7 +92,7 @@ async def on_message(msg):
 			elif(p1==False and fight[1]["turn"]==False):
 				randomdmg=random.randint(15, 20)
 				if fight[1]["focusturnp2"]==fight[1]["turncounter"]:
-					randomdmg=round(randomdmg*1.8)
+					randomdmg=round(randomdmg*2)
 				new = {
 					"p1hp" : fight[1]["p1hp"]-randomdmg,
 					"p2hp" : fight[1]["p2hp"],
@@ -125,7 +125,7 @@ async def on_message(msg):
 				if(p1==True and fight[1]["turn"]==True):
 					randomdmg=random.randint(35, 40)
 					if fight[1]["focusturnp1"]==fight[1]["turncounter"]:
-						randomdmg=round(randomdmg*1.5)
+						randomdmg=round(randomdmg*1.75)
 					new = {
 						"p1hp" : fight[1]["p1hp"],
 						"p2hp" : fight[1]["p2hp"]-randomdmg,
@@ -145,6 +145,8 @@ async def on_message(msg):
 						await msg.channel.send(f"<@{str(p2id)}> youre next")
 				elif(p1==False and fight[1]["turn"]==False):
 					randomdmg=random.randint(35, 40)
+					if fight[1]["focusturnp2"]==fight[1]["turncounter"]:
+						randomdmg=round(randomdmg*1.75)
 					new = {
 						"p1hp" : fight[1]["p1hp"]-randomdmg,
 						"p2hp" : fight[1]["p2hp"],
