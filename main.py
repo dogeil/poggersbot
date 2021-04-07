@@ -69,7 +69,7 @@ async def on_message(msg):
 		att2names=["secondary attack","secondary att","secondary a","sec attack","sec att","sec a","s attack","s att","s a","attack2","att2","a2","2"]
 		if(msg.content.lower() in attnames):
 			if(p1==True and fight[1]["turn"]==True):
-				randomdmg=random.randint(15, 20)
+				randomdmg=round(random.randint(15, 20)*fight[1]["guardp2"])
 				if fight[1]["focusturnp1"]==fight[1]["turncounter"]:
 					randomdmg=round(randomdmg*2)
 				new = {
@@ -78,7 +78,9 @@ async def on_message(msg):
 					"turn" : False,
 					"turncounter": fight[1]["turncounter"]+1,
 					"focusturnp1": fight[1]["focusturnp1"],
-					"focusturnp2": fight[1]["focusturnp2"]
+					"focusturnp2": fight[1]["focusturnp2"],
+					"guardp1": fight[1]["guardp1"],
+					"guardp2": 1
 				}
 				fightdict[fight[0]]=new
 				newhp=str(new["p2hp"])
@@ -90,7 +92,7 @@ async def on_message(msg):
 					await msg.channel.send(f"theyre now at {newhp} hp")
 					await msg.channel.send(f"<@{str(p2id)}> youre next")
 			elif(p1==False and fight[1]["turn"]==False):
-				randomdmg=random.randint(15, 20)
+				randomdmg=round(random.randint(15, 20)*fight[1]["guardp1"])
 				if fight[1]["focusturnp2"]==fight[1]["turncounter"]:
 					randomdmg=round(randomdmg*2)
 				new = {
@@ -99,7 +101,9 @@ async def on_message(msg):
 					"turn" : True,
 					"turncounter": fight[1]["turncounter"]+1,
 					"focusturnp1": fight[1]["focusturnp1"],
-					"focusturnp2": fight[1]["focusturnp2"]
+					"focusturnp2": fight[1]["focusturnp2"],
+					"guardp1": 1,
+					"guardp2": fight[1]["guardp2"]
 				}
 				fightdict[fight[0]]=new
 				newhp=str(new["p1hp"])
@@ -123,7 +127,7 @@ async def on_message(msg):
 				hit=False
 			if hit:
 				if(p1==True and fight[1]["turn"]==True):
-					randomdmg=random.randint(35, 40)
+					randomdmg=round(random.randint(35, 40)*fight[1]["guardp2"])
 					if fight[1]["focusturnp1"]==fight[1]["turncounter"]:
 						randomdmg=round(randomdmg*1.75)
 					new = {
@@ -132,7 +136,9 @@ async def on_message(msg):
 						"turn" : False,
 						"turncounter": fight[1]["turncounter"]+1,
 						"focusturnp1": fight[1]["focusturnp1"],
-						"focusturnp2": fight[1]["focusturnp2"]
+						"focusturnp2": fight[1]["focusturnp2"],
+						"guardp1": fight[1]["guardp1"],
+						"guardp2": 1
 					}
 					fightdict[fight[0]]=new
 					newhp=str(new["p2hp"])
@@ -144,7 +150,7 @@ async def on_message(msg):
 						await msg.channel.send(f"theyre now at {newhp} hp")
 						await msg.channel.send(f"<@{str(p2id)}> youre next")
 				elif(p1==False and fight[1]["turn"]==False):
-					randomdmg=random.randint(35, 40)
+					randomdmg=round(random.randint(35, 40)*fight[1]["guardp1"])
 					if fight[1]["focusturnp2"]==fight[1]["turncounter"]:
 						randomdmg=round(randomdmg*1.75)
 					new = {
@@ -153,7 +159,9 @@ async def on_message(msg):
 						"turn" : True,
 						"turncounter": fight[1]["turncounter"]+1,
 						"focusturnp1": fight[1]["focusturnp1"],
-						"focusturnp2": fight[1]["focusturnp2"]
+						"focusturnp2": fight[1]["focusturnp2"],
+						"guardp1": 1,
+						"guardp2": fight[1]["guardp2"]
 					}
 					fightdict[fight[0]]=new
 					newhp=str(new["p1hp"])
@@ -172,7 +180,9 @@ async def on_message(msg):
 						"turn" : False,
 						"turncounter": fight[1]["turncounter"]+1,
 						"focusturnp1": fight[1]["focusturnp1"],
-						"focusturnp2": fight[1]["focusturnp2"]
+						"focusturnp2": fight[1]["focusturnp2"],
+						"guardp1": fight[1]["guardp1"],
+						"guardp2": fight[1]["guardp2"]
 					}
 					fightdict[fight[0]]=new
 					b=str(fight[1]["p2hp"])
@@ -186,7 +196,9 @@ async def on_message(msg):
 						"turn" : True,
 						"turncounter": fight[1]["turncounter"]+1,
 						"focusturnp1": fight[1]["focusturnp1"],
-						"focusturnp2": fight[1]["focusturnp2"]
+						"focusturnp2": fight[1]["focusturnp2"],
+						"guardp1": fight[1]["guardp1"],
+						"guardp2": fight[1]["guardp2"]
 					}
 					fightdict[fight[0]]=new
 					b=str(fight[1]["p1hp"])
@@ -201,7 +213,9 @@ async def on_message(msg):
 				"turn" : False,
 				"turncounter": fight[1]["turncounter"]+1,
 				"focusturnp1": fight[1]["turncounter"]+2,
-				"focusturnp2": fight[1]["focusturnp2"]
+				"focusturnp2": fight[1]["focusturnp2"],
+				"guardp1": fight[1]["guardp1"],
+				"guardp2": fight[1]["guardp2"]
 				}
 				fightdict[fight[0]]=new
 				b=str(fight[1]["p1hp"])
@@ -215,11 +229,46 @@ async def on_message(msg):
 				"turn" : True,
 				"turncounter": fight[1]["turncounter"]+1,
 				"focusturnp1": fight[1]["focusturnp1"],
-				"focusturnp2": fight[1]["turncounter"]+2
+				"focusturnp2": fight[1]["turncounter"]+2,
+				"guardp1": fight[1]["guardp1"],
+				"guardp2": fight[1]["guardp2"]
 				}
 				fightdict[fight[0]]=new
 				b=str(fight[1]["p1hp"])
 				await msg.channel.send("you have activated focus")	
+				await msg.channel.send(f"theyre still at {b} hp")
+				await msg.channel.send(f"<@{str(p1id)}> youre next")
+		elif(msg.content.lower() == "guard"):
+			if(p1):
+				new = {
+				"p1hp" : fight[1]["p1hp"],
+				"p2hp" : fight[1]["p2hp"],
+				"turn" : False,
+				"turncounter": fight[1]["turncounter"]+1,
+				"focusturnp1": fight[1]["turncounter"],
+				"focusturnp2": fight[1]["focusturnp2"],
+				"guardp1": 0.4,
+				"guardp2": fight[1]["guardp2"]
+				}
+				fightdict[fight[0]]=new
+				b=str(fight[1]["p1hp"])
+				await msg.channel.send("you have activated guard")	
+				await msg.channel.send(f"theyre still at {b} hp")
+				await msg.channel.send(f"<@{str(p2id)}> youre next")
+			else:
+				new = {
+				"p1hp" : fight[1]["p1hp"],
+				"p2hp" : fight[1]["p2hp"],
+				"turn" : True,
+				"turncounter": fight[1]["turncounter"]+1,
+				"focusturnp1": fight[1]["focusturnp1"],
+				"focusturnp2": fight[1]["turncounter"],
+				"guardp1": fight[1]["guardp1"],
+				"guardp2": 0.4
+				}
+				fightdict[fight[0]]=new
+				b=str(fight[1]["p1hp"])
+				await msg.channel.send("you have activated guard")	
 				await msg.channel.send(f"theyre still at {b} hp")
 				await msg.channel.send(f"<@{str(p1id)}> youre next")
 
@@ -275,7 +324,9 @@ async def fight(ctx, obama : discord.Member):
 		"turn": turn,
 		"turncounter": 0,
 		"focusturnp1": 0,
-		"focusturnp2": 0
+		"focusturnp2": 0,
+		"guardp1": 1,
+		"guardp2": 1
 		}
 		fightdict[f"/{str(ctx.author.id)}/{str(obama.id)}/"]=add
 		if turn==True:
