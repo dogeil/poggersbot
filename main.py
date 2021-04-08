@@ -257,12 +257,13 @@ async def on_message(msg):
 				}
 				fightdict[fight[0]]=new
 				b=str(fight[1]["guardp1"])
+				gp=100-(100*b)
 				if g == False:
 					await msg.channel.send("you have activated guard")
-					await msg.channel.send(f"your guard is {100-100*b}%")
+					await msg.channel.send(f"your guard is {gp}%")
 				else:
 					await msg.channel.send("your guard was already activated")
-					await msg.channel.send(f"your new guard is {100-100*b}%")
+					await msg.channel.send(f"your new guard is {gp}%")
 				await msg.channel.send(f"<@{str(p2id)}> youre next")
 			else:
 				g=None
@@ -282,18 +283,19 @@ async def on_message(msg):
 				}
 				fightdict[fight[0]]=new
 				b=str(fight[1]["guardp2"])
+				gp=100-(100*b)
 				if g == False:
 					await msg.channel.send("you have activated guard")
-					await msg.channel.send(f"your guard is {(100-100*int(b))}%")
+					await msg.channel.send(f"your guard is {gp}%")
 				else:
 					await msg.channel.send("your guard was already activated")
-					await msg.channel.send(f"your new guard is {(100-100*int(b))}%")
+					await msg.channel.send(f"your new guard is {gp}%")
 				await msg.channel.send(f"<@{str(p1id)}> youre next")
 		elif(msg.content.lower() == "stats"):
 			send=f"(focus and turn are maybe confusing but use .fighthelp to know what they means)\nPlayer 1 (p1): <@{str(p1id)}>\nPlayer 2 (p2): <@{str(p2id)}>\n"
 			for a, b in fight[1].items():
 				if(a=="guardp1" or a=="guardp2"):
-					b=str(100-100*b)+"%"
+					b=str(round(100-(100*b)))+"%"
 				send+=a+": "+str(b)+"\n"
 			await msg.channel.send(send)
 		elif(msg.content.lower() == "end" and not p1 == None):
