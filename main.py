@@ -240,6 +240,11 @@ async def on_message(msg):
 				await msg.channel.send(f"<@{str(p1id)}> youre next")
 		elif(msg.content.lower() == "guard"):
 			if(p1):
+				g=None
+				if(not fight[1]["guardp1"]==1):
+					g=True
+				else:
+					g=False
 				new = {
 				"p1hp" : fight[1]["p1hp"],
 				"p2hp" : fight[1]["p2hp"],
@@ -247,15 +252,24 @@ async def on_message(msg):
 				"turncounter": fight[1]["turncounter"]+1,
 				"focusturnp1": fight[1]["turncounter"],
 				"focusturnp2": fight[1]["focusturnp2"],
-				"guardp1": 0.4,
+				"guardp1": random.randint(0.25, 0.4),
 				"guardp2": fight[1]["guardp2"]
 				}
 				fightdict[fight[0]]=new
-				b=str(fight[1]["p1hp"])
-				await msg.channel.send("you have activated guard")	
-				await msg.channel.send(f"theyre still at {b} hp")
+				b=str(fight[1]["guardp1"])
+				if g == False:
+					await msg.channel.send("you have activated guard")
+					await msg.channel.send(f"your guard is {100-100*b}%")
+				else:
+					await msg.channel.send("your guard was already activated")
+					await msg.channel.send(f"your new guard is {100-100*b}%")
 				await msg.channel.send(f"<@{str(p2id)}> youre next")
 			else:
+				g=None
+				if(not fight[1]["guardp2"]==1):
+					g=True
+				else:
+					g=False
 				new = {
 				"p1hp" : fight[1]["p1hp"],
 				"p2hp" : fight[1]["p2hp"],
@@ -264,18 +278,34 @@ async def on_message(msg):
 				"focusturnp1": fight[1]["focusturnp1"],
 				"focusturnp2": fight[1]["turncounter"],
 				"guardp1": fight[1]["guardp1"],
-				"guardp2": 0.4
+				"guardp2": random.randint(0.25, 0.4)
 				}
 				fightdict[fight[0]]=new
-				b=str(fight[1]["p1hp"])
-				await msg.channel.send("you have activated guard")	
-				await msg.channel.send(f"theyre still at {b} hp")
+				b=str(fight[1]["guardp2"])
+				if g == False:
+					await msg.channel.send("you have activated guard")
+					await msg.channel.send(f"your guard is {100-100*b}%")
+				else:
+					await msg.channel.send("your guard was already activated")
+					await msg.channel.send(f"your new guard is {100-100*b}%")
 				await msg.channel.send(f"<@{str(p1id)}> youre next")
-
-		elif(msg.content.lower() == "end"):
-			if(not p1 == None):
-				await msg.channel.send(f"{msg.author.mention} gave up due to the extreme swag of their opponent")
-				del fightdict[fight[0]]
+		elif(msg.content.lower() == "stats"):
+			send=f"(focus and turn are maybe confusing but use .fighthelp to know what they means)\nPlayer 1: <@{str(p1id)}>\nPlayer 2: <@{str(p2id)}>\n"
+			for a, b in fight[1].items():
+				a.replace("p1hp","Player 1 HP")
+				a.replace("p2hp","Player 2 HP")
+				a.replace("turn", "Turn")
+				a.replace("turncounter","Turn Counter")
+				a.replace("focusturnp1","Focus Turn Player 1")
+				a.replace("focusturnp2", "Focus Turn Player 2")
+				a.replace("guardp1", "Guard Player 1")
+				a.replace("guardp2", "Guard Player 2")
+				if(a=="Guard Player 1" or "Guard Player 2"):
+					b=str(100-100*b)+"%"
+				send+=a+": "+b+"\n"
+		elif(msg.content.lower() == "end" and not p1 == None):
+			await msg.channel.send(f"{msg.author.mention} gave up due to the extreme swag of their opponent")
+			del fightdict[fight[0]]
 	await bot.process_commands(msg)
 
 @bot.command()
