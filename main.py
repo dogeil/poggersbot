@@ -303,6 +303,7 @@ async def on_message(msg):
 				if(a=="Guard Player 1" or "Guard Player 2"):
 					b=str(100-100*b)+"%"
 				send+=a+": "+b+"\n"
+			await msg.channel.send(send)
 		elif(msg.content.lower() == "end" and not p1 == None):
 			await msg.channel.send(f"{msg.author.mention} gave up due to the extreme swag of their opponent")
 			del fightdict[fight[0]]
