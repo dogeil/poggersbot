@@ -252,7 +252,7 @@ async def on_message(msg):
 				"turncounter": fight[1]["turncounter"]+1,
 				"focusturnp1": fight[1]["turncounter"],
 				"focusturnp2": fight[1]["focusturnp2"],
-				"guardp1": random.randint(0.25, 0.4),
+				"guardp1": round(random.uniform(0.25, 0.4), 2),
 				"guardp2": fight[1]["guardp2"]
 				}
 				fightdict[fight[0]]=new
@@ -278,31 +278,23 @@ async def on_message(msg):
 				"focusturnp1": fight[1]["focusturnp1"],
 				"focusturnp2": fight[1]["turncounter"],
 				"guardp1": fight[1]["guardp1"],
-				"guardp2": random.randint(0.25, 0.4)
+				"guardp2": round(random.uniform(0.25, 0.4), 2)
 				}
 				fightdict[fight[0]]=new
 				b=str(fight[1]["guardp2"])
 				if g == False:
 					await msg.channel.send("you have activated guard")
-					await msg.channel.send(f"your guard is {100-100*b}%")
+					await msg.channel.send(f"your guard is {(100-100*int(b))}%")
 				else:
 					await msg.channel.send("your guard was already activated")
-					await msg.channel.send(f"your new guard is {100-100*b}%")
+					await msg.channel.send(f"your new guard is {(100-100*int(b))}%")
 				await msg.channel.send(f"<@{str(p1id)}> youre next")
 		elif(msg.content.lower() == "stats"):
-			send=f"(focus and turn are maybe confusing but use .fighthelp to know what they means)\nPlayer 1: <@{str(p1id)}>\nPlayer 2: <@{str(p2id)}>\n"
+			send=f"(focus and turn are maybe confusing but use .fighthelp to know what they means)\nPlayer 1 (p1): <@{str(p1id)}>\nPlayer 2 (p2): <@{str(p2id)}>\n"
 			for a, b in fight[1].items():
-				a.replace("p1hp","Player 1 HP")
-				a.replace("p2hp","Player 2 HP")
-				a.replace("turn", "Turn")
-				a.replace("turncounter","Turn Counter")
-				a.replace("focusturnp1","Focus Turn Player 1")
-				a.replace("focusturnp2", "Focus Turn Player 2")
-				a.replace("guardp1", "Guard Player 1")
-				a.replace("guardp2", "Guard Player 2")
-				if(a=="Guard Player 1" or "Guard Player 2"):
+				if(a=="guardp1" or a=="guardp2"):
 					b=str(100-100*b)+"%"
-				send+=a+": "+b+"\n"
+				send+=a+": "+str(b)+"\n"
 			await msg.channel.send(send)
 		elif(msg.content.lower() == "end" and not p1 == None):
 			await msg.channel.send(f"{msg.author.mention} gave up due to the extreme swag of their opponent")
