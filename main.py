@@ -256,7 +256,7 @@ async def on_message(msg):
 				"guardp2": fight[1]["guardp2"]
 				}
 				fightdict[fight[0]]=new
-				b=str(fight[1]["guardp1"])
+				b=fight[1]["guardp1"]
 				gp=100-(100*b)
 				if g == False:
 					await msg.channel.send("you have activated guard")
@@ -282,7 +282,7 @@ async def on_message(msg):
 				"guardp2": round(random.uniform(0.25, 0.4), 2)
 				}
 				fightdict[fight[0]]=new
-				b=str(fight[1]["guardp2"])
+				b=fight[1]["guardp2"]
 				gp=100-(100*b)
 				if g == False:
 					await msg.channel.send("you have activated guard")
