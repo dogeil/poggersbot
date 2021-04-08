@@ -65,7 +65,7 @@ class Help(commands.Cog):
 		embed.add_field(name="secondary attack", value="slightly different attack that deals higher damage but only has a 50% chance to hit")
 		embed.add_field(name="focus", value="makes the basic attack do 200% more damage and the secondary attack have a 25% higher chance to hit and deal 175% more damage and only lasts for the next turn")
 		embed.add_field(name="guard", value="blocks any incoming damage by a random number between 75% and 60% and stays with you until you get hit (cant stack)")
-		embed.add_field(name="stats", value="shows the stats of the current battle (if you want to able to understand what \"Turn\" and \"Focus Turn\"means read this: using focus assgins a turn (that turn is your next one) where focus will be activated and will only be used if its the same as the turn counter, turn will be True when it is Player 1\'s turn and False for Player 2")
+		embed.add_field(name="stats", value="shows the stats of the current battle (if you want to able to understand what \"Turn\" and \"Focus Turn\"means read this: using focus assgins a turn (that turn is your next one) where focus will be activated and will only be used if its the same as the turn counter, turn will be True when it is Player 1\'s turn and False for Player 2)")
 		embed.add_field(name="end", value="ends the fight")
 		await ctx.send(embed=embed)
 
