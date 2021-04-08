@@ -256,11 +256,11 @@ async def on_message(msg):
 				"guardp2": fight[1]["guardp2"]
 				}
 				fightdict[fight[0]]=new
-				b=fight[1]["guardp1"]
-				gp=100-(100*b)
+				b=new["guardp1"]
+				gp=100-int(float(100)*float(b))
 				if g == False:
 					await msg.channel.send("you have activated guard")
-					await msg.channel.send(f"your guard is {gp}%")
+					await msg.channel.send(f"your guard is {str(gp)}%")
 				else:
 					await msg.channel.send("your guard was already activated")
 					await msg.channel.send(f"your new guard is {gp}%")
@@ -282,11 +282,11 @@ async def on_message(msg):
 				"guardp2": round(random.uniform(0.25, 0.4), 2)
 				}
 				fightdict[fight[0]]=new
-				b=fight[1]["guardp2"]
-				gp=100-(100*b)
+				b=new["guardp2"]
+				gp=100-int(float(100)*float(b))
 				if g == False:
 					await msg.channel.send("you have activated guard")
-					await msg.channel.send(f"your guard is {gp}%")
+					await msg.channel.send(f"your guard is {str(gp)}%")
 				else:
 					await msg.channel.send("your guard was already activated")
 					await msg.channel.send(f"your new guard is {gp}%")
