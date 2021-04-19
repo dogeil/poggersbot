@@ -71,7 +71,7 @@ class Misc(commands.Cog):
 		await log(ctx, f"User received: {str(sexuser)}, Rate: {RATE}")
 	@commands.command()	
 	async def sex(self, ctx, *, sexpeople):
-		RATE=random.randint(00,100)
+		RATE=random.randint(0,100)
 		if random.randint(0,1000) == 1:
 			RATE=1000
 		sexembed=discord.Embed(title=f"sex rate of {ctx.author.name} and {sexpeople}", description=f"***{RATE}%***", timestamp=datetime.datetime.utcnow(), color=discord.Color.red())
@@ -85,6 +85,19 @@ class Misc(commands.Cog):
 			await ctx.send(f"8{'='*20}D")
 		else:	
 			await ctx.send(f"8{'='*random.randint(1,10)}D")	
+
+	@commands.command()
+	async def yom(self, ctx):
+		await log(ctx)
+		reAL="pounds"
+		a=2.205
+		RATE=random.randint(0,200)
+		if random.randint(0,1000) == 1:
+			RATE=1000
+			reAL="ton"
+		mome=["mome","mom","mother","m","mama"]
+		y=random.choice(mome)
+		await ctx.send(f"your {y} weighs {RATE} kilograms ({int(RATE*a)} {reAL})")	
 			
 	@commands.command(help="pong (bot latency)")
 	async def ping(self, ctx):
