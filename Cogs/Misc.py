@@ -95,6 +95,7 @@ class Misc(commands.Cog):
 		if random.randint(0,1000) == 1:
 			RATE=1000
 			reAL="ton"
+			a=0.001
 		mome=["mome","mom","mother","m","mama"]
 		y=random.choice(mome)
 		await ctx.send(f"your {y} weighs {RATE} kilograms ({int(RATE*a)} {reAL})")	
