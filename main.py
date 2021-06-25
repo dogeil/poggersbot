@@ -351,13 +351,31 @@ async def fight(ctx, obama : discord.Member):
 		"focusturnp1": 0,
 		"focusturnp2": 0,
 		"guardp1": 1,
-		"guardp2": 1
+		"guardp2": 1,
+		"classp1": None,
+		"classp2": None
 		}
 		fightdict[f"/{str(ctx.author.id)}/{str(obama.id)}/"]=add
 		if turn==True:
 			await ctx.send(f"welcome to fight command scuffed edition!!!\n{ctx.author.mention} you are the starter\n use the .fighthelp command in case you dont know what to do")
 		else:
 			await ctx.send(f"welcome to fight command scuffed edition!!!\n{obama.mention} you are the starter\n use the .fighthelp command in case you dont know what to do")
+
+@bot.command(aliases=["class"])
+async def c(ctx, classselection):
+	classdict={
+		"scout": 1,
+		"soldier": 2,
+		"pyro": 3,
+		"demoman": 4,
+		"heavy": 5,
+		"engineer": 6,
+		"medic": 7,
+		"sniper": 8,
+		"spy": 9,
+		"random": 10
+	}
+	await ctx.send("*epic win gif here* \n"+str(classdict[classselection]))
 
 @bot.command()
 async def printfd(ctx):
