@@ -25,7 +25,7 @@ class Help(commands.Cog):
 	@commands.command(help="Shows about")
 	async def about(self, ctx):
 		await log(ctx)
-		await ctx.send("This a player duel bot made by @walmart#9070 using discord.py, you can download the source code here: https://github.com/Ya1Boi/poggersbot")
+		await ctx.send("This a player duel bot made by @walmart#6969 using discord.py, you can download the source code here: https://github.com/Ya1Boi/poggersbot")
 
 	@commands.command(help="misc help")
 	async def mischelp(self, ctx):

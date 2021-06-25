@@ -3,6 +3,7 @@ import discord, os, traceback, datetime, random
 from discord.ext import commands
 
 fightdict={}
+testdict={}
 
 def getfight(id, dicte):
 	variables=None
@@ -361,7 +362,7 @@ async def fight(ctx, obama : discord.Member):
 		else:
 			await ctx.send(f"welcome to fight command scuffed edition!!!\n{obama.mention} you are the starter\n use the .fighthelp command in case you dont know what to do")
 
-@bot.command(aliases=["class"])
+@bot.command(aliases=["class","classselection"])
 async def c(ctx, classselection):
 	classdict={
 		"scout": 1,
@@ -375,7 +376,13 @@ async def c(ctx, classselection):
 		"spy": 9,
 		"random": 10
 	}
-	await ctx.send("*epic win gif here* \n"+str(classdict[classselection]))
+	die={
+		ctx.author.mention: str(classdict[classselection])
+	}
+	testdict={
+		str(die): "epic win"
+	}
+	await ctx.send("*epic win gif here* \n"+str(testdict))
 
 @bot.command()
 async def printfd(ctx):
