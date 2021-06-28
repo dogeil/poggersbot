@@ -403,7 +403,7 @@ token = os.environ.get("TOKEN")
 bot.run(token)
 
 """
-dumb bot made by @retard#9070, to run it yourself, check the README
+dumb bot made by @walmart#6969, to run it yourself, check the README
 
 GITHUB: https://github.com/Ya1Boi/poggersbot (i just realized this is kind of useless because if youre seeing this youre probably already on the github)
 """
