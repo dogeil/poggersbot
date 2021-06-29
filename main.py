@@ -336,6 +336,24 @@ async def fight(ctx, obama : discord.Member):
 		await ctx.send(f"{ctx.author.mention} why are you trying to fight {obama.mention} theyre already doing it with someone else")
 	else:
 		#actual fight
+
+		# await ctx.send("clas???????")
+		# classselection=0
+
+		# classdict={
+		# "scout": 1,
+		# "soldier": 2,
+		# "pyro": 3,
+		# "demoman": 4,
+		# "heavy": 5,
+		# "engineer": 6,
+		# "medic": 7,
+		# "sniper": 8,
+		# "spy": 9,
+		# "random": 10
+		# }
+		# selec=classdict[classselection]
+
 		turn=None
 
 		a=random.randint(1, 100)
@@ -361,28 +379,6 @@ async def fight(ctx, obama : discord.Member):
 			await ctx.send(f"welcome to fight command scuffed edition!!!\n{ctx.author.mention} you are the starter\n use the .fighthelp command in case you dont know what to do")
 		else:
 			await ctx.send(f"welcome to fight command scuffed edition!!!\n{obama.mention} you are the starter\n use the .fighthelp command in case you dont know what to do")
-
-@bot.command(aliases=["class","classselection"])
-async def c(ctx, classselection):
-	classdict={
-		"scout": 1,
-		"soldier": 2,
-		"pyro": 3,
-		"demoman": 4,
-		"heavy": 5,
-		"engineer": 6,
-		"medic": 7,
-		"sniper": 8,
-		"spy": 9,
-		"random": 10
-	}
-	die={
-		ctx.author.mention: str(classdict[classselection])
-	}
-	testdict={
-		str(die): "epic win"
-	}
-	await ctx.send("*epic win gif here* \n"+str(testdict))
 
 @bot.command()
 async def printfd(ctx):
