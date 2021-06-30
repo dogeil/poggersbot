@@ -105,6 +105,12 @@ class Misc(commands.Cog):
 		await log(ctx, "Current ping: {:.1f}".format(self.bot.latency * 1000)+" ms")
 		await ctx.send("pong gaming \n" + "{:.1f}".format(self.bot.latency * 1000) +" ms")
 
+	@commands.command()	
+	async def howmuchtimeleftuntil(self, ctx, *, the):
+		the=the.replace(" ", "")
+		await ctx.send(the+"\n\n command in development")
+		
+
 	@commands.command(help="roll dice")
 	async def roll(self, ctx, num = None):
 		if num == None:
