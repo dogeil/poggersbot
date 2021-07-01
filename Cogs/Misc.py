@@ -107,7 +107,7 @@ class Misc(commands.Cog):
 
 	@commands.command()	
 	async def howmuchtimeleftuntil(self, ctx, *, the):
-		the=the.replace(" ", "")
+		the=the.replace(" ", "").split(",")
 		await ctx.send(the+"\n\n command in development")
 		
 
