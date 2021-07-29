@@ -116,7 +116,7 @@ async def on_message(msg):
 					await msg.channel.send(f"theyre now at {newhp} hp")
 					await msg.channel.send(f"<@{str(p1id)}> youre next")
 		elif(msg.content.lower() in att2names):
-			hitchance=random.randint(0,100)
+			hitchance=random.randint(1,100)
 			if fight[1]["focusturnp1"]==fight[1]["turncounter"] and p1 == True:
 				hitchance=random.randint(0,75)
 			elif fight[1]["focusturnp2"]==fight[1]["turncounter"] and p1 == False:
@@ -363,12 +363,12 @@ async def fight(ctx, obama : discord.Member):
 			turn=False
 		
 		add = {
-		"p1hp": 100,
-		"p2hp": 100,
+		"p1hp": 150,
+		"p2hp": 150,
 		"turn": turn,
 		"turncounter": 0,
-		"focusturnp1": 0,
-		"focusturnp2": 0,
+		"focusturnp1": 999999999999999999999999,
+		"focusturnp2": 999999999999999999999999,
 		"guardp1": 1,
 		"guardp2": 1,
 		"classp1": None,
