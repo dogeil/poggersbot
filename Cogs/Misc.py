@@ -109,8 +109,9 @@ class Misc(commands.Cog):
 	@commands.command()	
 	async def howmuchtimeleftuntil(self, ctx, *, the):
 		the=the.replace(" ", "").split(",")
-		d=date.today()
-		await ctx.send(d.ctime()+" \n(command in development)")
+		now = datetime.datetime.now()
+		d=date.today().ctime().replace("00:00:00", str(now.hour)+":"+str(+now.minute)+":"+str(now.second))
+		await ctx.send(d+" \n(command in development)")
 		
 
 	@commands.command(help="roll dice")
