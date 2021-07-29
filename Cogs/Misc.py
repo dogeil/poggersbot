@@ -1,4 +1,5 @@
 import discord, random, datetime
+from datetime import date
 from discord.ext import commands
 from main import log
 
@@ -108,7 +109,8 @@ class Misc(commands.Cog):
 	@commands.command()	
 	async def howmuchtimeleftuntil(self, ctx, *, the):
 		the=the.replace(" ", "").split(",")
-		await ctx.send(the+"\n\n command in development")
+		d=date.today()
+		await ctx.send(d.ctime()+" \n(command in development)")
 		
 
 	@commands.command(help="roll dice")

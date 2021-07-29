@@ -55,7 +55,7 @@ class Help(commands.Cog):
 		embed.add_field(name=".cock", value=":chicken:")
 		embed.add_field(name=".calc", value="Calculates whatever you say after the command (only certain characters are allowed)")
 		embed.add_field(name=".uwu", value="no lol")
-		embed.add_field(name=".howmuchtimeleftuntil", value="checks how much time left until a certain date/time, SYNTAX: \"Minute,Hour,Day,Month,Year,return type(return type is the type you want the answer to be in, can be:\"year\",\"month\",\"day\,\"hour\",\"minute\")\", fill in 0 for variables you dont want, ONLY USE NUMBERS and separate with \",\"")
+		embed.add_field(name=".howmuchtimeleftuntil", value="checks how much time left until a certain date/time, SYNTAX: \"Minute,Hour,Day,Month,Year, fill in 0 for variables you dont want, ONLY USE NUMBERS and separate with \",\"\"")
 		await ctx.send(embed=embed)
 
 	@commands.command(help="the")
