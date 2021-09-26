@@ -112,7 +112,9 @@ class Misc(commands.Cog):
 		now = datetime.datetime.now()
 		d=date.today().ctime().replace("00:00:00", str(now.hour)+":"+str(+now.minute)+":"+str(now.second))
 		await ctx.send(d+" \n(command in development)")
-		
+	@commands.command()
+	async def blackjack(self, ctx):
+		await ctx.send("i forgot to make this command")
 
 	@commands.command(help="roll dice")
 	async def roll(self, ctx, num = None):
